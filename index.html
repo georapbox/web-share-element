@@ -61,11 +61,32 @@
       max-width: 640px;
     }
 
-    .error {
+    .not-supported-error {
       color: var(--error-color);
     }
 
-    .error[hidden] {
+    .not-supported-error[hidden] {
+      display: none;
+    }
+
+    #console {
+      padding: 1rem;
+      background-color: #121212;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    #console > div:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    #console .error {
+      color: #fd7878;
+    }
+
+    #console:empty {
       display: none;
     }
 
@@ -119,9 +140,9 @@
       <span slot="button-content">Share this page</span>
     </web-share>
 
-    <p class="error" hidden>Web Share API is not supported in your browser</p>
+    <p class="not-supported-error" hidden>Web Share API is not supported in your browser</p>
 
-    <p>Open the console panel in developer tools to see logged events.</p>
+    <pre id="console"></pre>
 
     <h2>Source</h2>
 
@@ -143,20 +164,24 @@
 
     const $webShareEl = document.querySelector('web-share');
 
-    // $webShareEl.url = window.location.href;
-    // $webShareEl.title = document.title;
-    // $webShareEl.text = document.querySelector('meta[name="description"]').content;
+    $webShareEl.url = window.location.href;
+    $webShareEl.title = document.title;
+    $webShareEl.text = document.querySelector('meta[name="description"]').content;
+
+    const $console = document.getElementById('console');
 
     document.addEventListener('web-share:success', () => {
       console.log('web-share:success');
+      $console.innerHTML += `<div>web-share:success</div>`;
     });
 
     document.addEventListener('web-share:error', evt => {
-      console.log('web-share:error -> ', evt.detail);
+      console.log('web-share:error -> ', evt.detail.error);
+      $console.innerHTML += `<div><span class="error">web-share:error</span> -> ${evt.detail.error.name}: ${evt.detail.error.message}</div>`;
     });
 
     if (!navigator.share) {
-      document.querySelector('.error').hidden = false;
+      document.querySelector('.not-supported-error').hidden = false;
     }
   </script>
 </body>

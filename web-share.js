@@ -105,7 +105,7 @@ export class WebShare extends HTMLElement {
       return;
     }
 
-    if (navigator.share) {
+    try {
       return navigator.share({
         url: this.url,
         title: this.title,
@@ -120,8 +120,8 @@ export class WebShare extends HTMLElement {
           detail: { error }
         }));
       });
-    } else {
-      return Promise.reject('Web Share API is not supported.');
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 
