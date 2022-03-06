@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&lt;web-share&gt; element</title>
+  <meta name="description" content="A custom element to share links, text, and files to other apps.">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --error-color: #f53939;
+      --bg-color: #ffffff;
+      --text-color: #303942;
+      --link-color: #1a73e8;
+      --button-bg-color: var(--link-color);
+      --button-text-color: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --error-color: #fd7878;
+        --bg-color: #202125;
+        --text-color: #cccccc;
+        --link-color: #8ab4f8;
+        --button-bg-color: var(--link-color);
+        --button-text-color: #202125;
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      padding: 1rem;
+    }
+
+    h1, h2, p {
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+
+    .container {
+      margin: 0 auto;
+      max-width: 640px;
+    }
+
+    .error {
+      color: var(--error-color);
+    }
+
+    .error[hidden] {
+      display: none;
+    }
+
+    @media screen and (max-width: 414px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Component custom styling */
+    web-share:not(:defined) {
+      display: none;
+    }
+
+    web-share {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    web-share::part(button) {
+      background-color: var(--button-bg-color);
+      color: var(--button-text-color);
+      border: 0;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    web-share::part(button disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>&lt;web-share&gt; element</h1>
+
+    <p>A custom element to share links, text, and files to other apps.</p>
+
+    <h2>Demo</h2>
+
+    <web-share>
+      <span slot="button-content">Share this page</span>
+    </web-share>
+
+    <p class="error" hidden>Web Share API is not supported in your browser</p>
+
+    <p>Open the console panel in developer tools to see logged events.</p>
+
+    <h2>Source</h2>
+
+    <p>
+      Source code and documentation can be found in <a href="https://github.com/georapbox/web-share-element" target="_blank" rel="noreferrer noopener">Github repository</a>.
+    </p>
+
+    <h2>License</h2>
+
+    <p>
+      <a href="https://georapbox.mit-license.org/@2022" target="_blank" rel="noreferrer noopener">The MIT License (MIT)</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { WebShare } from './web-share.js';
+
+    WebShare.defineCustomElement();
+
+    const $webShareEl = document.querySelector('web-share');
+
+    // $webShareEl.url = window.location.href;
+    // $webShareEl.title = document.title;
+    // $webShareEl.text = document.querySelector('meta[name="description"]').content;
+
+    document.addEventListener('web-share:success', () => {
+      console.log('web-share:success');
+    });
+
+    document.addEventListener('web-share:error', evt => {
+      console.log('web-share:error -> ', evt.detail);
+    });
+
+    if (!navigator.share) {
+      document.querySelector('.error').hidden = false;
+    }
+  </script>
+</body>
+</html>
