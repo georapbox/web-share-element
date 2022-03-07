@@ -17,6 +17,8 @@ export class WebShare extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.appendChild(template.content.cloneNode(true));
 
+    this._files = null;
+
     this._buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
     this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
 
@@ -24,7 +26,7 @@ export class WebShare extends HTMLElement {
       this.$button.hidden = this.hideIfUnsupported && !navigator.share;
     }
 
-    this._onShare = this._onShare.bind(this);
+    this.share = this.share.bind(this);
     this._onSlotChange = this._onSlotChange.bind(this);
   }
 
@@ -34,11 +36,11 @@ export class WebShare extends HTMLElement {
 
   connectedCallback() {
     this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
-    this.$button && this.$button.addEventListener('click', this._onShare);
+    this.$button && this.$button.addEventListener('click', this.share);
   }
 
   disconnectedCallback() {
-    this.$button && this.$button.removeEventListener('click', this._onShare);
+    this.$button && this.$button.removeEventListener('click', this.share);
   }
 
   attributeChangedCallback(name) {
@@ -100,44 +102,47 @@ export class WebShare extends HTMLElement {
     this.setAttribute('text', value);
   }
 
-  share() {
+  get files() {
+    return this._files;
+  }
+
+  set files(value) {
+    this._files = value;
+  }
+
+  async share() {
     if (this.disabled) {
       return;
     }
 
     try {
-      return navigator.share({
+      const shareData = {
         url: this.url,
         title: this.title,
         text: this.text
-      }).then(() => {
-        this.dispatchEvent(new Event('web-share:success', {
-          bubbles: true
-        }));
-      }).catch(error => {
-        this.dispatchEvent(new CustomEvent('web-share:error', {
-          bubbles: true,
-          detail: { error }
-        }));
-      });
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
+      };
 
-  _onShare() {
-    this.share().catch(error => {
+      if (Array.isArray(this.files) && navigator.canShare && navigator.canShare({ files: this.files })) {
+        shareData.files = this.files;
+      }
+
+      await navigator.share(shareData);
+
+      this.dispatchEvent(new Event('web-share:success', {
+        bubbles: true
+      }));
+    } catch (error) {
       this.dispatchEvent(new CustomEvent('web-share:error', {
         bubbles: true,
         detail: { error }
       }));
-    });
+    }
   }
 
   _onSlotChange() {
-    this.$button && this.$button.removeEventListener('click', this._onShare);
+    this.$button && this.$button.removeEventListener('click', this.share);
     this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
-    this.$button && this.$button.addEventListener('click', this._onShare);
+    this.$button && this.$button.addEventListener('click', this.share);
   }
 
   static defineCustomElement(elementName = 'web-share') {
