@@ -1,6 +1,5 @@
 [demo]: https://georapbox.github.io/web-share-element/
 [support]: https://caniuse.com/#feat=custom-elementsv1
-[exceptions]: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions
 [polyfill]: https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
 [license]: https://georapbox.mit-license.org/@2022
 
@@ -59,10 +58,11 @@ web-share::part(button disabled) {
 | `url` | `url` | String | `''` | Optional. A string representing a URL to be shared. |
 | `title` | `title` | String | `''` | Optional. A string representing a title to be shared. |
 | `text` | `text` | String | `''` | Optional. A string representing text to be shared. |
+| `files` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
 | `disabled` | `disabled` | Boolean | `false` | Optional. Defines if the share button is disabled. |
 | `hideIfUnsupported` | `hide-if-unsupported` | Boolean | `false` | Optional. Defines if the share button is hidden if Web Share API is not supported by the platfrom. |
 
-All properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state.
+All of the above properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state. The only exception is the `files` property.
 
 ### Slots
 
@@ -83,6 +83,12 @@ Defines/registers the custom element with the name provided. If no name is provi
 | ----- | ---- | ------- | ----------- |
 | elementName | `string` | `web-share` | Name for the new custom element |
 
+### Public methods
+
+#### share()
+
+Calling this method on the element, will try to share the shareable data taken from its properties.
+
 ### Events
 
 **web-share:success** - This event is triggered on if share is successful.
@@ -94,7 +100,7 @@ document.addEventListener('web-share:success', evt => {
 });
 ```
 
-**web-share:error** - This event is triggered on if an error occurs. Here is a [full list of possible exceptions][exceptions].
+**web-share:error** - This event is triggered on if an error occurs. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
 
 ```js
 document.addEventListener('web-share:error', evt => {
@@ -157,6 +163,7 @@ Below is a full usage example, with custom configuration and styling. Check the 
     webShareElement.url = window.location.href;
     webShareElement.title = document.title;
     webShareElement.text = document.querySelector('meta[name="description"]').content;
+    webShareElement.files = [new File(['foo'], 'foo.txt', { type: 'text/plain', })];
   </script>
 </body>
 </html>
