@@ -26,7 +26,7 @@ export class WebShare extends HTMLElement {
       this.$button.hidden = this.hideIfUnsupported && !navigator.share;
     }
 
-    this.share = this.share.bind(this);
+    this._onShareButtonClick = this._onShareButtonClick.bind(this);
     this._onSlotChange = this._onSlotChange.bind(this);
   }
 
@@ -36,11 +36,11 @@ export class WebShare extends HTMLElement {
 
   connectedCallback() {
     this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
-    this.$button && this.$button.addEventListener('click', this.share);
+    this.$button && this.$button.addEventListener('click', this._onShareButtonClick);
   }
 
   disconnectedCallback() {
-    this.$button && this.$button.removeEventListener('click', this.share);
+    this.$button && this.$button.removeEventListener('click', this._onShareButtonClick);
   }
 
   attributeChangedCallback(name) {
@@ -140,10 +140,17 @@ export class WebShare extends HTMLElement {
     }
   }
 
-  _onSlotChange() {
-    this.$button && this.$button.removeEventListener('click', this.share);
-    this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
-    this.$button && this.$button.addEventListener('click', this.share);
+  _onShareButtonClick(evt) {
+    evt.preventDefault();
+    this.share();
+  }
+
+  _onSlotChange(evt) {
+    if (evt.target && evt.target.name === 'button') {
+      this.$button && this.$button.removeEventListener('click', this._onShareButtonClick);
+      this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
+      this.$button && this.$button.addEventListener('click', this._onShareButtonClick);
+    }
   }
 
   static defineCustomElement(elementName = 'web-share') {
