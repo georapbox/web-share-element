@@ -131,8 +131,8 @@ Below is a full usage example, with custom configuration and styling. Check the 
     }
 
     web-share::part(button) {
-      background-color: var(--button-bg-color);
-      color: var(--button-text-color);
+      background-color: #1a73e8;
+      color: #ffffff;
       border: 0;
       padding: 0.375rem 0.75rem;
       border-radius: 0.25rem;
