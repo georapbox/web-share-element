@@ -128,8 +128,9 @@ export class WebShare extends HTMLElement {
 
       await navigator.share(shareData);
 
-      this.dispatchEvent(new Event('web-share:success', {
-        bubbles: true
+      this.dispatchEvent(new CustomEvent('web-share:success', {
+        bubbles: true,
+        detail: { shareData }
       }));
     } catch (error) {
       this.dispatchEvent(new CustomEvent('web-share:error', {

@@ -70,7 +70,7 @@ Below is a list with all available slots provided by the component so that you c
 
 | Slot name | Description |
 | ------------------- | ----------- |
-| `button` | Override the share button with another element of your preference. It is omportant to note that you will need to provide the `behavior="button"` attribute to your element, to tell the browser that this is the element you want to use as the new share button. Example: `<button slot="button" behavior="button">Share this page</button>` |
+| `button` | Override the share button with another element of your preference. It is important to note that you will need to provide the `behavior="button"` attribute to your element, to tell the browser that this is the element you want to use as the new share button. Example: `<button slot="button" behavior="button">Share this page</button>` |
 | `button-content` | Override the share button's content with content of your preference. Useful if all you need is to change the button's label. Example: `<span slot="button-content">Share this page</span>` |
 
 ### Static methods
@@ -88,8 +88,9 @@ Defines/registers the custom element with the name provided. If no name is provi
 **web-share:success** - This event is triggered on if share is successful.
 
 ```js
-document.addEventListener('web-share:success', () => {
-  console.log('Share was successful');
+document.addEventListener('web-share:success', evt => {
+  console.log(evt.detail); 
+  // => { shareData: { url: 'https://developer.mozilla.org', title: 'MDN', text: 'Learn web development on MDN!' } }
 });
 ```
 
