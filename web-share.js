@@ -14,10 +14,8 @@ export class WebShare extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({ mode: 'open' });
-    shadowRoot.appendChild(template.content.cloneNode(true));
-
-    this._files = null;
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this._buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
     this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
@@ -36,7 +34,14 @@ export class WebShare extends HTMLElement {
 
   connectedCallback() {
     this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
-    this.$button && this.$button.addEventListener('click', this._onShareButtonClick);
+
+    if (this.$button) {
+      this.$button.addEventListener('click', this._onShareButtonClick);
+
+      if (this.$button.nodeName !== 'BUTTON') {
+        this.$button.setAttribute('role', 'button');
+      }
+    }
   }
 
   disconnectedCallback() {
@@ -50,6 +55,7 @@ export class WebShare extends HTMLElement {
 
     if (name === 'disabled' && this.$button) {
       this.$button.disabled = this.disabled;
+      this.$button.setAttribute('aria-disabled', this.disabled);
       this.$button.part = this.disabled ? 'button disabled' : 'button';
     }
   }
@@ -149,7 +155,14 @@ export class WebShare extends HTMLElement {
     if (evt.target && evt.target.name === 'button') {
       this.$button && this.$button.removeEventListener('click', this._onShareButtonClick);
       this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
-      this.$button && this.$button.addEventListener('click', this._onShareButtonClick);
+
+      if (this.$button) {
+        this.$button.addEventListener('click', this._onShareButtonClick);
+
+        if (this.$button.nodeName !== 'BUTTON') {
+          this.$button.setAttribute('role', 'button');
+        }
+      }
     }
   }
 
