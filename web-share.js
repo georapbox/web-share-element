@@ -42,6 +42,13 @@ export class WebShare extends HTMLElement {
         this.$button.setAttribute('role', 'button');
       }
     }
+
+    this._upgradeProperty('url');
+    this._upgradeProperty('title');
+    this._upgradeProperty('text');
+    this._upgradeProperty('files');
+    this._upgradeProperty('disabled');
+    this._upgradeProperty('hideIfUnsupported');
   }
 
   disconnectedCallback() {
@@ -163,6 +170,22 @@ export class WebShare extends HTMLElement {
           this.$button.setAttribute('role', 'button');
         }
       }
+    }
+  }
+
+  /**
+   * https://developers.google.com/web/fundamentals/web-components/best-practices#lazy-properties
+   * This is to safe guard against cases where, for instance, a framework
+   * may have added the element to the page and set a value on one of its
+   * properties, but lazy loaded its definition. Without this guard, the
+   * upgraded element would miss that property and the instance property
+   * would prevent the class property setter from ever being called.
+   */
+  _upgradeProperty(prop) {
+    if (Object.prototype.hasOwnProperty.call(this, prop)) {
+      const value = this[prop];
+      delete this[prop];
+      this[prop] = value;
     }
   }
 
