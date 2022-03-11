@@ -158,7 +158,7 @@
       -moz-appearance: none;
     }
 
-    web-share::part(button disabled) {
+    web-share::part(button button--disabled) {
       opacity: 0.5;
       cursor: not-allowed;
     }
@@ -175,22 +175,22 @@
     <form name="props-form">
       <div>
         <label for="url">Url:</label>
-        <input type="text" name="url">
+        <input id="url" type="text" name="url">
       </div>
 
       <div>
         <label for="title">Title:</label>
-        <input type="text" name="title">
+        <input id="title" type="text" name="title">
       </div>
 
       <div>
         <label for="text">Text:</label>
-        <input type="text" name="text">
+        <input id="text" type="text" name="text">
       </div>
 
       <div>
         <label for="files">Files:</label>
-        <input type="file" name="files" multiple>
+        <input id="files" type="file" name="files" multiple>
       </div>
     </form>
 

@@ -45,7 +45,7 @@ web-share::part(button) {
   /* The button element */
 }
 
-web-share::part(button disabled) {
+web-share::part(button button--disabled) {
   /* the button element - disabled state */
 }
 ```
@@ -142,7 +142,7 @@ Below is a full usage example, with custom configuration and styling. Check the 
       -moz-appearance: none;
     }
 
-    web-share::part(button disabled) {
+    web-share::part(button button--disabled) {
       opacity: 0.5;
       cursor: not-allowed;
     }

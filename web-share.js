@@ -63,7 +63,7 @@ export class WebShare extends HTMLElement {
     if (name === 'disabled' && this.$button) {
       this.$button.disabled = this.disabled;
       this.$button.setAttribute('aria-disabled', this.disabled);
-      this.$button.part = this.disabled ? 'button disabled' : 'button';
+      this.$button.part = this.disabled ? 'button button--disabled' : 'button';
     }
   }
 
