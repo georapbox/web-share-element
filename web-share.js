@@ -4,6 +4,17 @@ template.innerHTML = /*template*/`
   <style>
     :host {
       all: initial;
+      box-sizing: border-box;
+    }
+
+    :host *,
+    :host *::before,
+    :host *::after {
+      box-sizing: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
     }
   </style>
 
