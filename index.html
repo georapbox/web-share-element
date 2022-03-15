@@ -152,6 +152,7 @@
       border: 0;
       padding: 0.375rem 0.75rem;
       border-radius: 0.25rem;
+      line-height: 1.7;
       font-size: 1rem;
       cursor: pointer;
       -webkit-appearance: none;
@@ -161,6 +162,12 @@
     web-share::part(button button--disabled) {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+
+    web-share [slot="button-content"] {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
   </style>
 </head>
@@ -174,28 +181,31 @@
 
     <form name="props-form">
       <div>
-        <label for="url">Url:</label>
-        <input id="url" type="text" name="url">
+        <label for="shareUrl">Url:</label>
+        <input id="shareUrl" type="text" name="shareUrl">
       </div>
 
       <div>
-        <label for="title">Title:</label>
-        <input id="title" type="text" name="title">
+        <label for="shareTitle">Title:</label>
+        <input id="shareTitle" type="text" name="shareTitle">
       </div>
 
       <div>
-        <label for="text">Text:</label>
-        <input id="text" type="text" name="text">
+        <label for="shareText">Text:</label>
+        <input id="shareText" type="text" name="shareText">
       </div>
 
       <div>
-        <label for="files">Files:</label>
-        <input id="files" type="file" name="files" multiple>
+        <label for="shareFiles">Files:</label>
+        <input id="shareFiles" type="file" name="shareFiles" multiple>
       </div>
     </form>
 
     <web-share>
-      <span slot="button-content">Share this page</span>
+      <span slot="button-content">
+        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" width="20" height="20"><title>Share Social</title><circle cx="128" cy="256" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="112" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="400" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94M342.17 135.53l-172.34 96.94"/></svg>
+        Share this page
+      </span>
     </web-share>
 
     <p class="not-supported-error" hidden></p>
@@ -224,21 +234,21 @@
     const $webShareEl = document.querySelector('web-share');
     const $form = document.forms['props-form'];
 
-    $form.url.value = $webShareEl.url = window.location.href;
-    $form.title.value = $webShareEl.title = document.title;
-    $form.text.value = $webShareEl.text = document.querySelector('meta[name="description"]').content;
+    $form.shareUrl.value = $webShareEl.shareUrl = window.location.href;
+    $form.shareTitle.value = $webShareEl.shareTitle = document.title;
+    $form.shareText.value = $webShareEl.shareText = document.querySelector('meta[name="description"]').content;
 
     $form.addEventListener('input', evt => {
       const t = evt.target;
 
       switch (t.name) {
-        case 'url':
-        case 'title':
-        case 'text':
+        case 'shareUrl':
+        case 'shareTitle':
+        case 'shareText':
           $webShareEl[t.name] = t.value;
           break;
-        case 'files':
-          $webShareEl.files = [...t.files];
+        case 'shareFiles':
+          $webShareEl.shareFiles = [...t.files];
           break;
       }
     });

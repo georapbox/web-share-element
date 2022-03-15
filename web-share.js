@@ -12,7 +12,7 @@
  *
  * @example
  *
- * <web-share url="https://developer.mozilla.org" title="MDN" text="Learn web development on MDN!">
+ * <web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
  *   <button slot="button" behavior="button">Share this page</button>
  * </web-share>
  */
@@ -73,10 +73,10 @@ export class WebShare extends HTMLElement {
       }
     }
 
-    this._upgradeProperty('url');
-    this._upgradeProperty('title');
-    this._upgradeProperty('text');
-    this._upgradeProperty('files');
+    this._upgradeProperty('shareUrl');
+    this._upgradeProperty('shareTitle');
+    this._upgradeProperty('shareText');
+    this._upgradeProperty('shareFiles');
     this._upgradeProperty('disabled');
     this._upgradeProperty('hideIfUnsupported');
   }
@@ -121,35 +121,35 @@ export class WebShare extends HTMLElement {
     }
   }
 
-  get url() {
-    return this.getAttribute('url') || '';
+  get shareUrl() {
+    return this.getAttribute('share-url') || '';
   }
 
-  set url(value) {
-    this.setAttribute('url', value);
+  set shareUrl(value) {
+    this.setAttribute('share-url', value);
   }
 
-  get title() {
-    return this.getAttribute('title') || '';
+  get shareTitle() {
+    return this.getAttribute('share-title') || '';
   }
 
-  set title(value) {
-    this.setAttribute('title', value);
+  set shareTitle(value) {
+    this.setAttribute('share-title', value);
   }
 
-  get text() {
-    return this.getAttribute('text') || '';
+  get shareText() {
+    return this.getAttribute('share-text') || '';
   }
 
-  set text(value) {
-    this.setAttribute('text', value);
+  set shareText(value) {
+    this.setAttribute('share-text', value);
   }
 
-  get files() {
-    return this._files;
+  get shareFiles() {
+    return this._files || null;
   }
 
-  set files(value) {
+  set shareFiles(value) {
     this._files = value;
   }
 
@@ -160,13 +160,13 @@ export class WebShare extends HTMLElement {
 
     try {
       const shareData = {
-        url: this.url,
-        title: this.title,
-        text: this.text
+        url: this.shareUrl,
+        title: this.shareTitle,
+        text: this.shareText
       };
 
-      if (Array.isArray(this.files) && navigator.canShare && navigator.canShare({ files: this.files })) {
-        shareData.files = this.files;
+      if (Array.isArray(this.shareFiles) && navigator.canShare && navigator.canShare({ files: this.shareFiles })) {
+        shareData.files = this.shareFiles;
       }
 
       await navigator.share(shareData);

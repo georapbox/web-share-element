@@ -23,7 +23,7 @@ WebShare.defineCustomElement();
 ### Markup
 
 ```html
-<web-share url="https://developer.mozilla.org" title="MDN" text="Learn web development on MDN!">
+<web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
   <button slot="button" behavior="button">Share this page</button>
 </web-share>
 ```
@@ -55,14 +55,14 @@ web-share::part(button button--disabled) {
 ### Properties/Attributes
 | Property | Attribute | Type | Default | Description |
 | --------- | -------- | ---- | ------- | ----------- |
-| `url` | `url` | String | `''` | Optional. A string representing a URL to be shared. |
-| `title` | `title` | String | `''` | Optional. A string representing a title to be shared. |
-| `text` | `text` | String | `''` | Optional. A string representing text to be shared. |
-| `files` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
+| `shareUrl` | `share-url` | String | `''` | Optional. A string representing a URL to be shared. |
+| `shareTitle` | `share-title` | String | `''` | Optional. A string representing a title to be shared. |
+| `shareText` | `share-text` | String | `''` | Optional. A string representing text to be shared. |
+| `shareFiles` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
 | `disabled` | `disabled` | Boolean | `false` | Optional. Defines if the share button is disabled. |
 | `hideIfUnsupported` | `hide-if-unsupported` | Boolean | `false` | Optional. Defines if the share button is hidden if Web Share API is not supported by the platfrom. |
 
-All of the above properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state. The only exception is the `files` property.
+All of the above properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state. The only exception is the `shareFiles` property.
 
 ### Slots
 
@@ -169,10 +169,10 @@ Below is a full usage example, with custom configuration and styling. Check the 
 
     const webShareElement = document.querySelector('web-share');
 
-    webShareElement.url = window.location.href;
-    webShareElement.title = document.title;
-    webShareElement.text = document.querySelector('meta[name="description"]').content;
-    webShareElement.files = [new File(['foo'], 'foo.txt', { type: 'text/plain', })];
+    webShareElement.shareUrl = window.location.href;
+    webShareElement.shareTitle = document.title;
+    webShareElement.shareText = document.querySelector('meta[name="description"]').content;
+    webShareElement.shareFiles = [new File(['foo'], 'foo.txt', { type: 'text/plain', })];
   </script>
 </body>
 </html>
