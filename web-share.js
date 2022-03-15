@@ -40,7 +40,7 @@ template.innerHTML = /*template*/`
   <slot name="button"><button type="button" part="button" behavior="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
-class WebShare extends HTMLElement {
+export class WebShare extends HTMLElement {
   constructor() {
     super();
 
@@ -225,5 +225,3 @@ class WebShare extends HTMLElement {
     }
   }
 }
-
-export { WebShare };
