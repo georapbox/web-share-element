@@ -80,29 +80,16 @@ All of the above properties reflect their values as HTML attributes to keep the 
 
 ### Static methods
 
-```js
-WebShare.defineCustomElement(elementName='web-share')
-```
-
-Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it.
-
-| Param | Type | Default | Description |
-| ----- | ---- | ------- | ----------- |
-| elementName | `string` | `web-share` | Name for the new custom element |
-
-```js
-WebShare.isSupported()
-```
-
-Returns `true` if Web Share API is supported by the platform, otherwise returns `false`.
+| Name | Description | Arguments |
+| ---- | ----------- | --------- |
+| `defineCustomElement` | Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it. | `elementName='web-share'` |
+| `isSupported` | Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. | - |
 
 ### Public methods
 
-```js
-share()
-```
-
-Calling this method on the element, will try to share the shareable data taken from its properties.
+| Name | Description | Arguments |
+| ---- | ----------- | --------- |
+| `share` | Shares the shareable data taken from the element's properties. | - |
 
 ### Events
 
