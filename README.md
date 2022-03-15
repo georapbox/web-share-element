@@ -58,7 +58,7 @@ web-share::part(button button--disabled) {
 | `shareUrl` | `share-url` | String | `''` | Optional. A string representing a URL to be shared. |
 | `shareTitle` | `share-title` | String | `''` | Optional. A string representing a title to be shared. |
 | `shareText` | `share-text` | String | `''` | Optional. A string representing text to be shared. |
-| `shareFiles` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
+| `shareFiles` | - | Array | `undefined` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
 | `disabled` | `disabled` | Boolean | `false` | Optional. Defines if the share button is disabled. |
 | `hideIfUnsupported` | `hide-if-unsupported` | Boolean | `false` | Optional. Defines if the share button is hidden if Web Share API is not supported by the platfrom. |
 
@@ -89,6 +89,12 @@ Defines/registers the custom element with the name provided. If no name is provi
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 | elementName | `string` | `web-share` | Name for the new custom element |
+
+```js
+WebShare.isSupported()
+```
+
+Returns `true` if Web Share API is supported by the platform, otherwise returns `false`.
 
 ### Public methods
 

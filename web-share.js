@@ -51,7 +51,7 @@ export class WebShare extends HTMLElement {
     this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
 
     if (this.$button) {
-      this.$button.hidden = this.hideIfUnsupported && !navigator.share;
+      this.$button.hidden = this.hideIfUnsupported && !WebShare.isSupported();
     }
 
     this._onShareButtonClick = this._onShareButtonClick.bind(this);
@@ -87,7 +87,7 @@ export class WebShare extends HTMLElement {
 
   attributeChangedCallback(name) {
     if (name === 'hide-if-unsupported' && this.$button) {
-      this.$button.hidden = this.hideIfUnsupported && !navigator.share;
+      this.$button.hidden = this.hideIfUnsupported && !WebShare.isSupported();
     }
 
     if (name === 'disabled' && this.$button) {
@@ -146,7 +146,7 @@ export class WebShare extends HTMLElement {
   }
 
   get shareFiles() {
-    return this._files || null;
+    return this._files;
   }
 
   set shareFiles(value) {
@@ -217,6 +217,10 @@ export class WebShare extends HTMLElement {
       delete this[prop];
       this[prop] = value;
     }
+  }
+
+  static isSupported() {
+    return Boolean(navigator.share);
   }
 
   static defineCustomElement(elementName = 'web-share') {
