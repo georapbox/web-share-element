@@ -100,7 +100,7 @@ Calling this method on the element, will try to share the shareable data taken f
 
 ### Events
 
-`web-share:success` - This event is triggered on if share is successful.
+`web-share:success` - Emmited when share is successful.
 
 ```js
 document.addEventListener('web-share:success', evt => {
@@ -109,7 +109,7 @@ document.addEventListener('web-share:success', evt => {
 });
 ```
 
-`web-share:error` - This event is triggered on if an error occurs. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
+`web-share:error` - Emmited when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
 
 ```js
 document.addEventListener('web-share:error', evt => {

@@ -1,4 +1,3 @@
-
 /**
  * A custom element to share links, text, and files to other apps.
  *
