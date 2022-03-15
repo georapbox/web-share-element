@@ -1,3 +1,23 @@
+
+/**
+ * A custom element to share links, text, and files to other apps.
+ *
+ * @slot button - The share button.
+ * @slot button-content - The share button's content.
+ *
+ * @csspart button - The share button.
+ * @csspart button--disabled - The share button when is disabled.
+ *
+ * @event web-share:success - Emitted when share is successful.
+ * @event web-share:error - Emitted when share fails for any reason.
+ *
+ * @example
+ *
+ * <web-share url="https://developer.mozilla.org" title="MDN" text="Learn web development on MDN!">
+ *   <button slot="button" behavior="button">Share this page</button>
+ * </web-share>
+ */
+
 const template = document.createElement('template');
 
 template.innerHTML = /*template*/`
@@ -21,7 +41,7 @@ template.innerHTML = /*template*/`
   <slot name="button"><button type="button" part="button" behavior="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
-export class WebShare extends HTMLElement {
+class WebShare extends HTMLElement {
   constructor() {
     super();
 
@@ -206,3 +226,5 @@ export class WebShare extends HTMLElement {
     }
   }
 }
+
+export { WebShare };

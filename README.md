@@ -53,8 +53,8 @@ web-share::part(button button--disabled) {
 ## API
 
 ### Properties/Attributes
-| Property name | Attribute name | Type | Default | Description |
-| ------------- | -------------- | ---- | ------- | ----------- |
+| Property | Attribute | Type | Default | Description |
+| --------- | -------- | ---- | ------- | ----------- |
 | `url` | `url` | String | `''` | Optional. A string representing a URL to be shared. |
 | `title` | `title` | String | `''` | Optional. A string representing a title to be shared. |
 | `text` | `text` | String | `''` | Optional. A string representing text to be shared. |
@@ -66,16 +66,23 @@ All of the above properties reflect their values as HTML attributes to keep the 
 
 ### Slots
 
-Below is a list with all available slots provided by the component so that you can fill with your own markup and override some of the default elements.
-
-| Slot name | Description |
-| ------------------- | ----------- |
+| Name | Description |
+| ---- | ----------- |
 | `button` | Override the share button with another element of your preference. It is important to note that you will need to provide the `behavior="button"` attribute to your element, to tell the browser that this is the element you want to use as the new share button. Example: `<button slot="button" behavior="button">Share this page</button>` |
 | `button-content` | Override the share button's content with content of your preference. Useful if all you need is to change the button's label. Example: `<span slot="button-content">Share this page</span>` |
 
+### CSS Parts
+
+| Name | Description |
+| ---- | ----------- |
+| `button` | The share button. |
+| `button--disabled` | The share button when is disabled. |
+
 ### Static methods
 
-#### WebShare.defineCustomElement(elementName='web-share')
+```js
+WebShare.defineCustomElement(elementName='web-share')
+```
 
 Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it.
 
@@ -85,13 +92,15 @@ Defines/registers the custom element with the name provided. If no name is provi
 
 ### Public methods
 
-#### share()
+```js
+share()
+```
 
 Calling this method on the element, will try to share the shareable data taken from its properties.
 
 ### Events
 
-**web-share:success** - This event is triggered on if share is successful.
+`web-share:success` - This event is triggered on if share is successful.
 
 ```js
 document.addEventListener('web-share:success', evt => {
@@ -100,7 +109,7 @@ document.addEventListener('web-share:success', evt => {
 });
 ```
 
-**web-share:error** - This event is triggered on if an error occurs. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
+`web-share:error` - This event is triggered on if an error occurs. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
 
 ```js
 document.addEventListener('web-share:error', evt => {
