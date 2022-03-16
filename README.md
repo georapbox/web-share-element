@@ -78,18 +78,13 @@ All of the above properties reflect their values as HTML attributes to keep the 
 | `button` | The share button. |
 | `button--disabled` | The share button when is disabled. |
 
-### Static methods
+### Methods
 
-| Name | Description | Arguments |
-| ---- | ----------- | --------- |
-| `defineCustomElement` | Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it. | `elementName='web-share'` |
-| `isSupported` | Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. | - |
-
-### Public methods
-
-| Name | Description | Arguments |
-| ---- | ----------- | --------- |
-| `share` | Shares the shareable data taken from the element's properties. | - |
+| Name | Type | Description | Arguments |
+| ---- | ---- | ----------- | --------- |
+| `defineCustomElement` | Static | Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it. | `elementName='web-share'` |
+| `isSupported` | Static | Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. | - |
+| `share` | Prototype | Shares the shareable data taken from the element's properties. | - |
 
 ### Events
 
