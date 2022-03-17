@@ -63,6 +63,8 @@ export class WebShare extends HTMLElement {
   }
 
   connectedCallback() {
+
+
     this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
 
     if (this.$button) {
@@ -122,7 +124,7 @@ export class WebShare extends HTMLElement {
   }
 
   get shareUrl() {
-    return this.getAttribute('share-url') || '';
+    return this.getAttribute('share-url');
   }
 
   set shareUrl(value) {
@@ -130,7 +132,7 @@ export class WebShare extends HTMLElement {
   }
 
   get shareTitle() {
-    return this.getAttribute('share-title') || '';
+    return this.getAttribute('share-title');
   }
 
   set shareTitle(value) {
@@ -138,7 +140,7 @@ export class WebShare extends HTMLElement {
   }
 
   get shareText() {
-    return this.getAttribute('share-text') || '';
+    return this.getAttribute('share-text');
   }
 
   set shareText(value) {
@@ -146,7 +148,7 @@ export class WebShare extends HTMLElement {
   }
 
   get shareFiles() {
-    return this._files;
+    return this._files || null;
   }
 
   set shareFiles(value) {
@@ -159,11 +161,21 @@ export class WebShare extends HTMLElement {
     }
 
     try {
-      const shareData = {
-        url: this.shareUrl,
-        title: this.shareTitle,
-        text: this.shareText
-      };
+      const shareData = {};
+
+      if (this.shareUrl) {
+        shareData.url = this.shareUrl;
+      }
+
+      if (this.shareTitle) {
+        shareData.title = this.shareTitle;
+      }
+
+      if (this.shareText) {
+        shareData.text = this.shareText;
+      }
+
+      console.log(shareData);
 
       if (Array.isArray(this.shareFiles) && navigator.canShare && navigator.canShare({ files: this.shareFiles })) {
         shareData.files = this.shareFiles;
