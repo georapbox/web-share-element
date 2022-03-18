@@ -1,5 +1,5 @@
 /**
- * A custom element to share links, text, and files to other apps.
+ * A custom element that implements the Web Share API to share user-defined data.
  *
  * @slot button - The share button.
  * @slot button-content - The share button's content.
@@ -177,7 +177,12 @@ export class WebShare extends HTMLElement {
 
       console.log(shareData);
 
-      if (Array.isArray(this.shareFiles) && navigator.canShare && navigator.canShare({ files: this.shareFiles })) {
+      if (
+        Array.isArray(this.shareFiles)
+        && this.shareFiles.length > 0
+        && navigator.canShare
+        && navigator.canShare({ files: this.shareFiles })
+      ) {
         shareData.files = this.shareFiles;
       }
 

@@ -5,7 +5,7 @@
 
 # &lt;web-share&gt; element
 
-A custom element to share links, text, and files to other apps.
+A custom element that implements the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) to share user-defined data.
 
 [API documentation](#api) &bull; [Demo][demo]
 
