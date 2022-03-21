@@ -1,3 +1,6 @@
+[![npm version](https://img.shields.io/npm/v/@georapbox/web-share-element.svg)](https://www.npmjs.com/package/@georapbox/web-share-element)
+[![npm license](https://img.shields.io/npm/l/@georapbox/web-share-element.svg)](https://www.npmjs.com/package/@georapbox/web-share-element)
+
 [demo]: https://georapbox.github.io/web-share-element/
 [support]: https://caniuse.com/#feat=custom-elementsv1
 [polyfill]: https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
@@ -9,22 +12,34 @@ A custom element that implements the [Web Share API](https://developer.mozilla.o
 
 [API documentation](#api) &bull; [Demo][demo]
 
+## Install
+
+```sh
+$ npm install --save @georapbox/web-share-element
+```
+
 ## Usage
 
 ### Script
 
 ```js
-import { WebShare } from '<YOUR_PATH>/web-share.js';
+import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.min.js';
 
-// By default, the element is not automatically defined to offer more flexibility.
+// Manually define the element.
 WebShare.defineCustomElement();
 ```
 
 ### Markup
 
 ```html
-<web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
-  <button slot="button" behavior="button">Share this page</button>
+<web-share 
+  share-url="https://developer.mozilla.org" 
+  share-title="MDN" 
+  share-text="Learn web development on MDN!"
+>
+  <button slot="button" behavior="button">
+    Share this page
+  </button>
 </web-share>
 ```
 
@@ -33,14 +48,6 @@ WebShare.defineCustomElement();
 By default, the component is style-free to remain as less opinionated as possible. However, you can style the various elements of the component using the `::part()` CSS pseudo-elements provided for this purpose. Below are demonstrated all available parts for styling.
 
 ```css
-web-share:not(:defined) {
-  /* Host element - not defined state */
-}
-
-web-share {
-  /* Host element */
-}
-
 web-share::part(button) {
   /* The button element */
 }
@@ -88,20 +95,21 @@ All of the above properties reflect their values as HTML attributes to keep the 
 
 ### Events
 
-`web-share:success` - Emmited when share is successful.
+`web-share:success` - Emitted when share is successful.
 
 ```js
 document.addEventListener('web-share:success', evt => {
-  console.log(evt.detail); 
+  console.log(evt.detail);
   // => { shareData: { url: 'https://developer.mozilla.org', title: 'MDN', text: 'Learn web development on MDN!' } }
 });
 ```
 
-`web-share:error` - Emmited when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
+`web-share:error` - Emitted when share is aborted or fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
 
 ```js
 document.addEventListener('web-share:error', evt => {
-  console.log(evt.detail); // => { error: DOMException: Share canceled }
+  console.log(evt.detail);
+  // => { error: DOMException: Share canceled }
 });
 ```
 

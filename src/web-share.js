@@ -1,22 +1,3 @@
-/**
- * A custom element that implements the Web Share API to share user-defined data.
- *
- * @slot button - The share button.
- * @slot button-content - The share button's content.
- *
- * @csspart button - The share button.
- * @csspart button--disabled - The share button when is disabled.
- *
- * @event web-share:success - Emitted when share is successful.
- * @event web-share:error - Emitted when share fails for any reason.
- *
- * @example
- *
- * <web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
- *   <button slot="button" behavior="button">Share this page</button>
- * </web-share>
- */
-
 const template = document.createElement('template');
 
 template.innerHTML = /*template*/`
@@ -40,7 +21,23 @@ template.innerHTML = /*template*/`
   <slot name="button"><button type="button" part="button" behavior="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
-export class WebShare extends HTMLElement {
+/**
+ * @slot button - The share button.
+ * @slot button-content - The share button's content.
+ *
+ * @csspart button - The share button.
+ * @csspart button--disabled - The share button when is disabled.
+ *
+ * @event web-share:success - Emitted when share is successful.
+ * @event web-share:error - Emitted when share fails for any reason.
+ *
+ * @example
+ *
+ * <web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
+ *   <button slot="button" behavior="button">Share this page</button>
+ * </web-share>
+ */
+class WebShare extends HTMLElement {
   constructor() {
     super();
 
@@ -175,8 +172,6 @@ export class WebShare extends HTMLElement {
         shareData.text = this.shareText;
       }
 
-      console.log(shareData);
-
       if (
         Array.isArray(this.shareFiles)
         && this.shareFiles.length > 0
@@ -246,3 +241,5 @@ export class WebShare extends HTMLElement {
     }
   }
 }
+
+export { WebShare };
