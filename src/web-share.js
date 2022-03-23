@@ -3,7 +3,6 @@ const template = document.createElement('template');
 template.innerHTML = /*template*/`
   <style>
     :host {
-      all: initial;
       box-sizing: border-box;
     }
 
