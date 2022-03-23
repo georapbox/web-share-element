@@ -5,7 +5,7 @@
 [support]: https://caniuse.com/#feat=custom-elementsv1
 [polyfill]: https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
 [license]: https://georapbox.mit-license.org/@2022
-[changelog]: [https://github.com/georapbox/web-share-element/blob/main/CHANGELOG.md]
+[changelog]: https://github.com/georapbox/web-share-element/blob/main/CHANGELOG.md
 
 # &lt;web-share&gt; element
 
