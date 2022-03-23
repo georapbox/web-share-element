@@ -199,6 +199,11 @@ class WebShare extends HTMLElement {
 
   _onShareButtonClick(evt) {
     evt.preventDefault();
+
+    this.dispatchEvent(new Event('web-share:click', {
+      bubbles: true
+    }));
+
     this.share();
   }
 

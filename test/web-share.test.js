@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, fixtureCleanup, html } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, fixtureCleanup, html, waitUntil } from '@open-wc/testing';
 import sinon from 'sinon';
 import { WebShare } from '../src/web-share.js';
 
@@ -121,6 +121,20 @@ describe('<web-share>', () => {
     `);
 
     expect(el).lightDom.to.equal('<a href="#" slot="button" behavior="button" role="button">Share this page</a>');
+  });
+
+  it('web-share:click event is emitted', async () => {
+    const el = await fixture(html`<web-share></web-share>`);
+    const btn = el.shadowRoot.querySelector('button');
+    const handler = sinon.spy();
+
+    el.addEventListener('web-share:click', handler);
+
+    btn.click();
+
+    await waitUntil(() => handler.calledOnce);
+
+    expect(handler).to.have.been.calledOnce;
   });
 
   it('share method is called', async () => {

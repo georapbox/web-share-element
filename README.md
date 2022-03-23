@@ -5,6 +5,7 @@
 [support]: https://caniuse.com/#feat=custom-elementsv1
 [polyfill]: https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
 [license]: https://georapbox.mit-license.org/@2022
+[changelog]: [https://github.com/georapbox/web-share-element/blob/main/CHANGELOG.md]
 
 # &lt;web-share&gt; element
 
@@ -95,6 +96,14 @@ All of the above properties reflect their values as HTML attributes to keep the 
 
 ### Events
 
+`web-share:click` - Emitted when share button is clicked.
+
+```js
+document.addEventListener('web-share:click', evt => {
+  console.log('Share button clicked');
+});
+```
+
 `web-share:success` - Emitted when share is successful.
 
 ```js
@@ -173,6 +182,10 @@ Below is a full usage example, with custom configuration and styling. Check the 
 </body>
 </html>
 ```
+
+## Changelog
+
+For API updates and breaking changes, check the [CHANGELOG][changelog].
 
 ## Browser support
 

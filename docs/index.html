@@ -95,6 +95,10 @@
       color: #69d380;
     }
 
+    #console .info {
+      color: #b1d8ff;
+    }
+
     #console:empty {
       display: none;
     }
@@ -255,6 +259,11 @@
           $webShareEl.shareFiles = [...t.files];
           break;
       }
+    });
+
+    document.addEventListener('web-share:click', evt => {
+      console.log('web-share:click -> ', evt);
+      $console.innerHTML += `<div>$ <span class="info">web-share:click</span></div>`;
     });
 
     document.addEventListener('web-share:success', evt => {
