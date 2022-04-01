@@ -59,8 +59,6 @@ class WebShare extends HTMLElement {
   }
 
   connectedCallback() {
-
-
     this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
 
     if (this.$button) {
@@ -80,6 +78,7 @@ class WebShare extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this._buttonSlot.removeEventListener('slotchange', this._onSlotChange);
     this.$button && this.$button.removeEventListener('click', this._onShareButtonClick);
   }
 
