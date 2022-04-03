@@ -28,9 +28,6 @@ describe('<web-share>', () => {
 
     expect(el.disabled).to.be.false;
     expect(el.getAttribute('disabled')).to.be.null;
-
-    expect(el.hideIfUnsupported).to.be.false;
-    expect(el.getAttribute('hide-if-unsupported')).to.be.null;
   });
 
   it('change default properties', async () => {
@@ -40,7 +37,6 @@ describe('<web-share>', () => {
         share-title="Share title"
         share-text="Share text"
         disabled
-        hide-if-unsupported
       ></web-share>
     `);
 
@@ -55,9 +51,6 @@ describe('<web-share>', () => {
 
     expect(el.disabled).to.be.true;
     expect(el.getAttribute('disabled')).to.equal('');
-
-    expect(el.hideIfUnsupported).to.be.true;
-    expect(el.getAttribute('hide-if-unsupported')).to.equal('');
   });
 
   it('change properties programmatically', async () => {
@@ -69,7 +62,6 @@ describe('<web-share>', () => {
     el.shareTitle = 'Share title';
     el.shareText = 'Share text';
     el.shareFiles = [file];
-    el.hideIfUnsupported = true;
     el.disabled = true;
 
     await elementUpdated(el);
@@ -88,9 +80,6 @@ describe('<web-share>', () => {
 
     expect(el.disabled).to.be.true;
     expect(el.getAttribute('disabled')).to.equal('');
-
-    expect(el.hideIfUnsupported).to.be.true;
-    expect(el.getAttribute('hide-if-unsupported')).to.equal('');
   });
 
   it('change button slot', async () => {

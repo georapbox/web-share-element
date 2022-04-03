@@ -68,7 +68,6 @@ web-share::part(button button--disabled) {
 | `shareText` | `share-text` | String | `null` | Optional. A string representing text to be shared. |
 | `shareFiles` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
 | `disabled` | `disabled` | Boolean | `false` | Optional. Defines if the share button is disabled. |
-| `hideIfUnsupported` | `hide-if-unsupported` | Boolean | `false` | Optional. Defines if the share button is hidden if Web Share API is not supported by the platfrom. |
 
 All of the above properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state. The only exception is the `shareFiles` property.
 
@@ -91,7 +90,6 @@ All of the above properties reflect their values as HTML attributes to keep the 
 | Name | Type | Description | Arguments |
 | ---- | ---- | ----------- | --------- |
 | `defineCustomElement` | Static | Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it. | `elementName='web-share'` |
-| `isSupported` | Static | Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. | - |
 | `share` | Prototype | Shares the shareable data taken from the element's properties. | - |
 
 ### Events
@@ -113,13 +111,43 @@ document.addEventListener('web-share:success', evt => {
 });
 ```
 
-`web-share:error` - Emitted when share is aborted or fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
+`web-share:abort` - Emitted when share is aborted.
+
+```js
+document.addEventListener('web-share:abort', () => {
+  console.log('Share is aborted');
+});
+```
+
+`web-share:error` - Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
 
 ```js
 document.addEventListener('web-share:error', evt => {
   console.log(evt.detail);
-  // => { error: DOMException: Share canceled }
+  // => { error: TypeError: navigator.share is not a function }
 });
+```
+
+## Utilities
+
+```js
+isWebShareSupported()
+```
+
+Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. By default, it checks if `navigator.share` is supported. If you want to also check if files can be shared, you can pass `{files: [File, ...]}` as argument. The `files` property needs to be an array of `File` objects.
+
+> NOTE: You don't necessarily need to check for Web Share API support. The component handles errors regarding support internally; you can catch them by registering the `web-share:error` event. The utility might come handy for a scenario that you want to dynamically import the custom element only if the API is supported (check example below). In cases that the Web Share API is partially supported, (eg Firefox in Android supports sharing `url`, `text` and `title` but not `files` yet), the component will try to share the other shareable data if provided and will omit any files the user is trying to share.
+
+```js
+import { isWebShareSupported } from './node_modules/@georapbox/web-share-element/dist/is-web-share-supported.min.js';
+
+// Check if Web Share API is supported
+if (isWebShareSupported()) {
+  // Import component dynamically...
+  const { WebShare } = await import('./node_modules/@georapbox/web-share-element/dist/web-share.min.js');
+
+  WebShare.defineCustomElement();
+}
 ```
 
 ## Example
@@ -168,7 +196,7 @@ Below is a full usage example, with custom configuration and styling. Check the 
   </web-share>
 
   <script type="module">
-    import { WebShare } from './web-share.js';
+    import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.min.js';
 
     WebShare.defineCustomElement();
 

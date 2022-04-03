@@ -1,8 +1,6 @@
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
-const FILE_NAME = 'web-share';
-
 const banner = `/*!
  * ${pkg.name}
  * ${pkg.description}
@@ -14,7 +12,7 @@ const banner = `/*!
  * @license ${pkg.license}
  */`;
 
-const makeConfig = (env = 'development') => {
+const makeConfig = ({ fileName, env, banner }) => {
   let bundleSuffix = '';
 
   if (env === 'production') {
@@ -22,11 +20,11 @@ const makeConfig = (env = 'development') => {
   }
 
   const config = {
-    input: `src/${FILE_NAME}.js`,
+    input: `src/${fileName}.js`,
     output: [
       {
         banner,
-        file: `dist/${FILE_NAME}.${bundleSuffix}js`,
+        file: `dist/${fileName}.${bundleSuffix}js`,
         format: 'es',
         exports: 'auto'
       }
@@ -47,12 +45,14 @@ const makeConfig = (env = 'development') => {
 
 export default commandLineArgs => {
   const configs = [
-    makeConfig()
+    makeConfig({ fileName: 'web-share', env: 'development', banner }),
+    makeConfig({ fileName: 'is-web-share-supported', env: 'development', banner: false })
   ];
 
   // Production
   if (commandLineArgs.environment === 'BUILD:production') {
-    configs.push(makeConfig('production'));
+    configs.push(makeConfig({ fileName: 'web-share', env: 'production', banner }));
+    configs.push(makeConfig({ fileName: 'is-web-share-supported', env: 'production', banner: false }));
   }
 
   return configs;

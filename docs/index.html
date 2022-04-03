@@ -91,6 +91,10 @@
       color: #fd7878;
     }
 
+    #console .warning {
+      color: #fff3cd;
+    }
+
     #console .success {
       color: #69d380;
     }
@@ -234,7 +238,10 @@
   </div>
 
   <script type="module">
-    import { WebShare } from 'https://unpkg.com/@georapbox/web-share-element/dist/web-share.min.js';
+    // import { isWebShareSupported } from 'https://unpkg.com/@georapbox/web-share-element/dist/is-web-share-supported.min.js';
+    import { isWebShareSupported } from '../src/is-web-share-supported.js';
+    // import { WebShare } from 'https://unpkg.com/@georapbox/web-share-element/dist/web-share.min.js';
+    import { WebShare } from '../dist/web-share.min.js';
 
     WebShare.defineCustomElement();
 
@@ -263,7 +270,7 @@
 
     document.addEventListener('web-share:click', evt => {
       console.log('web-share:click -> ', evt);
-      $console.innerHTML += `<div>$ <span class="info">web-share:click</span></div>`;
+      $console.innerHTML += `<div>$ <span class="info">web-share:click</span> -> Button clicked</div>`;
     });
 
     document.addEventListener('web-share:success', evt => {
@@ -276,10 +283,15 @@
       $console.innerHTML += `<div>$ <span class="error">web-share:error</span> -> ${evt.detail.error.name}: ${evt.detail.error.message}</div>`;
     });
 
-    if (!WebShare.isSupported()) {
+    document.addEventListener('web-share:abort', () => {
+      console.log('web-share:abort', 'Share is aborted');
+      $console.innerHTML += `<div>$ <span class="warning">web-share:abort</span> -> Share is aborted</div>`;
+    });
+
+    if (!isWebShareSupported()) {
       const errorPlaceholder = document.querySelector('.not-supported-error');
       errorPlaceholder.hidden = false;
-      errorPlaceholder.textContent = 'Web Share API is not supported in your browser';
+      errorPlaceholder.textContent = 'Web Share API is not supported by your browser.';
     }
   </script>
 </body>

@@ -1,6 +1,8 @@
 const template = document.createElement('template');
 
-template.innerHTML = /*template*/`
+const html = String.raw;
+
+template.innerHTML = html`
   <style>
     :host {
       box-sizing: border-box;
@@ -27,8 +29,10 @@ template.innerHTML = /*template*/`
  * @csspart button - The share button.
  * @csspart button--disabled - The share button when is disabled.
  *
+ * @event web-share:click - Emitted when share button is clicked.
  * @event web-share:success - Emitted when share is successful.
  * @event web-share:error - Emitted when share fails for any reason.
+ * @event web-share:abort - Emitted when share is aborted.
  *
  * @example
  *
@@ -46,16 +50,12 @@ class WebShare extends HTMLElement {
     this._buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
     this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => el.getAttribute('behavior') === 'button');
 
-    if (this.$button) {
-      this.$button.hidden = this.hideIfUnsupported && !WebShare.isSupported();
-    }
-
     this._onShareButtonClick = this._onShareButtonClick.bind(this);
     this._onSlotChange = this._onSlotChange.bind(this);
   }
 
   static get observedAttributes() {
-    return ['hide-if-unsupported', 'disabled'];
+    return ['disabled'];
   }
 
   connectedCallback() {
@@ -74,7 +74,6 @@ class WebShare extends HTMLElement {
     this._upgradeProperty('shareText');
     this._upgradeProperty('shareFiles');
     this._upgradeProperty('disabled');
-    this._upgradeProperty('hideIfUnsupported');
   }
 
   disconnectedCallback() {
@@ -83,10 +82,6 @@ class WebShare extends HTMLElement {
   }
 
   attributeChangedCallback(name) {
-    if (name === 'hide-if-unsupported' && this.$button) {
-      this.$button.hidden = this.hideIfUnsupported && !WebShare.isSupported();
-    }
-
     if (name === 'disabled' && this.$button) {
       this.$button.disabled = this.disabled;
       this.$button.setAttribute('aria-disabled', this.disabled);
@@ -94,18 +89,6 @@ class WebShare extends HTMLElement {
       if (this.$button.part && this.$button.part.contains('button')) {
         this.$button.part.toggle('button--disabled', this.disabled);
       }
-    }
-  }
-
-  get hideIfUnsupported() {
-    return this.hasAttribute('hide-if-unsupported');
-  }
-
-  set hideIfUnsupported(value) {
-    if (value) {
-      this.setAttribute('hide-if-unsupported', '');
-    } else {
-      this.removeAttribute('hide-if-unsupported');
     }
   }
 
@@ -189,6 +172,12 @@ class WebShare extends HTMLElement {
         detail: { shareData }
       }));
     } catch (error) {
+      if (error.name === 'AbortError') {
+        return this.dispatchEvent(new Event('web-share:abort', {
+          bubbles: true
+        }));
+      }
+
       this.dispatchEvent(new CustomEvent('web-share:error', {
         bubbles: true,
         detail: { error }
@@ -235,10 +224,6 @@ class WebShare extends HTMLElement {
       delete this[prop];
       this[prop] = value;
     }
-  }
-
-  static isSupported() {
-    return Boolean(navigator.share);
   }
 
   static defineCustomElement(elementName = 'web-share') {
