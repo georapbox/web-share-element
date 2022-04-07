@@ -30,6 +30,12 @@ import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-s
 WebShare.defineCustomElement();
 ```
 
+Alternatively, you can import the automatically defined custom element.
+
+```js
+import './node_modules/@georapbox/web-share-element/dist/web-share-defined.min.js';
+```
+
 ### Markup
 
 ```html

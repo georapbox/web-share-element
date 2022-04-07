@@ -2,6 +2,7 @@
 
 ## v2.1.0 (2022-07-04)
 
+- Export the defined custom element as `web-share-defined.js` in case you don't want to manualy define it.
 - Do not require `behavior="button"` attribute on the element with `slot="button"`.
 
 ## v2.0.0 (2022-03-04)

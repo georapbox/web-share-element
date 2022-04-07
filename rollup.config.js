@@ -46,12 +46,14 @@ const makeConfig = ({ fileName, env, banner }) => {
 export default commandLineArgs => {
   const configs = [
     makeConfig({ fileName: 'web-share', env: 'development', banner }),
+    makeConfig({ fileName: 'web-share-defined', env: 'development', banner }),
     makeConfig({ fileName: 'is-web-share-supported', env: 'development', banner: false })
   ];
 
   // Production
   if (commandLineArgs.environment === 'BUILD:production') {
     configs.push(makeConfig({ fileName: 'web-share', env: 'production', banner }));
+    configs.push(makeConfig({ fileName: 'web-share-defined', env: 'production', banner }));
     configs.push(makeConfig({ fileName: 'is-web-share-supported', env: 'production', banner: false }));
   }
 
