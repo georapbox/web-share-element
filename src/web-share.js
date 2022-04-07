@@ -3,22 +3,6 @@ const template = document.createElement('template');
 const html = String.raw;
 
 template.innerHTML = html`
-  <style>
-    :host {
-      box-sizing: border-box;
-    }
-
-    :host *,
-    :host *::before,
-    :host *::after {
-      box-sizing: inherit;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-  </style>
-
   <slot name="button"><button type="button" part="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
