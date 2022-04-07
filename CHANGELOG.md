@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.1.0 (2022-07-04)
+
+- Do not require `behavior="button"` attribute on the element with `slot="button"`.
+
 ## v2.0.0 (2022-03-04)
 
 ### Breaking changes

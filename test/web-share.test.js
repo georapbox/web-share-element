@@ -85,11 +85,31 @@ describe('<web-share>', () => {
   it('change button slot', async () => {
     const el = await fixture(html`
       <web-share>
-        <button slot="button" behavior="button">Share this page</button>
+        <button slot="button" type="button">Share this page</button>
       </web-share>
     `);
 
-    expect(el).lightDom.to.equal('<button slot="button" behavior="button">Share this page</button>');
+    expect(el).lightDom.to.equal('<button slot="button" type="button">Share this page</button>');
+  });
+
+  it('change button slot with non button element', async () => {
+    const el = await fixture(html`
+      <web-share>
+        <a href="#" slot="button" role="button">Share this page</a>
+      </web-share>
+    `);
+
+    expect(el).lightDom.to.equal('<a href="#" slot="button" role="button">Share this page</a>');
+  });
+
+  it('role="button" is added on button slot if node is not button', async () => {
+    const el = await fixture(html`
+      <web-share>
+        <a href="#" slot="button">Share this page</a>
+      </web-share>
+    `);
+
+    expect(el).lightDom.to.equal('<a href="#" slot="button" role="button">Share this page</a>');
   });
 
   it('change button-content slot', async () => {
@@ -100,16 +120,6 @@ describe('<web-share>', () => {
     `);
 
     expect(el).lightDom.to.equal('<span slot="button-content">Share this page</span>');
-  });
-
-  it('role="button" is added on button slot if node is not button', async () => {
-    const el = await fixture(html`
-      <web-share>
-        <a href="#" slot="button" behavior="button">Share this page</a>
-      </web-share>
-    `);
-
-    expect(el).lightDom.to.equal('<a href="#" slot="button" behavior="button" role="button">Share this page</a>');
   });
 
   it('web-share:click event is emitted', async () => {

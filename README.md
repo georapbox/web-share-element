@@ -37,11 +37,7 @@ WebShare.defineCustomElement();
   share-url="https://developer.mozilla.org" 
   share-title="MDN" 
   share-text="Learn web development on MDN!"
->
-  <button slot="button" behavior="button">
-    Share this page
-  </button>
-</web-share>
+></web-share>
 ```
 
 ### Style
@@ -75,7 +71,7 @@ All of the above properties reflect their values as HTML attributes to keep the 
 
 | Name | Description |
 | ---- | ----------- |
-| `button` | Override the share button with another element of your preference. It is important to note that you will need to provide the `behavior="button"` attribute to your element, to tell the browser that this is the element you want to use as the new share button. Example: `<button slot="button" behavior="button">Share this page</button>` |
+| `button` | Override the share button with another element of your preference. Example: `<a href="#" slot="button" role="button">Share this page</a>` |
 | `button-content` | Override the share button's content with content of your preference. Useful if all you need is to change the button's label. Example: `<span slot="button-content">Share this page</span>` |
 
 ### CSS Parts
