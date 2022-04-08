@@ -1,11 +1,11 @@
 # CHANGELOG
 
-## v2.1.0 (2022-07-04)
+## v2.1.0 (2022-04-07)
 
 - Export the defined custom element as `web-share-defined.js` in case you don't want to manualy define it.
 - Do not require `behavior="button"` attribute on the element with `slot="button"`.
 
-## v2.0.0 (2022-03-04)
+## v2.0.0 (2022-04-03)
 
 ### Breaking changes
 
@@ -16,12 +16,12 @@
 
 The reasoning behind removing the `hideIfUnsupported` property and `WebShare.isSupported()` static method was in order to give more flexibility to the user by providing a utility function that can check for [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) support. This way, the user can have the freedom to handle the API not being supported at will. For example user might want to dynamically import the component only if the Web Share API is supported.
 
-## v1.1.0 (2022-23-03)
+## v1.1.0 (2022-03-23)
 
 - Emit `web-share:click` event when the share button is clicked.
 - Remove `all` CSS property from host element.
 
-## v1.0.0 (2022-21-03)
+## v1.0.0 (2022-03-21)
 
 - Initial release
 
