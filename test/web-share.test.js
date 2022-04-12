@@ -56,7 +56,7 @@ describe('<web-share>', () => {
   it('change properties programmatically', async () => {
     const el = await fixture(html`<web-share></web-share>`);
 
-    const file = new File(['foo'], 'foo.txt', { type: 'text/plain', });
+    const file = new File(['foo'], 'foo.txt', { type: 'text/plain' });
 
     el.shareUrl = 'Share Url';
     el.shareTitle = 'Share title';
@@ -141,7 +141,7 @@ describe('<web-share>', () => {
     const btn = el.shadowRoot.querySelector('button');
     const fn = sinon.spy(el, 'share');
 
-    el.shareFiles = [new File(['foo'], 'foo.txt', { type: 'text/plain', })];
+    el.shareFiles = [new File(['foo'], 'foo.txt', { type: 'text/plain' })];
 
     btn.click();
 

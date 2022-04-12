@@ -28,13 +28,13 @@ class WebShare extends HTMLElement {
   constructor() {
     super();
 
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
 
     this._buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
-    this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => {
-      return el.nodeType === 1 && (el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button');
-    });
+    this.$button = this._getButton();
 
     this._onClick = this._onClick.bind(this);
     this._onSlotChange = this._onSlotChange.bind(this);
@@ -45,7 +45,7 @@ class WebShare extends HTMLElement {
   }
 
   connectedCallback() {
-    this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
+    this._buttonSlot && this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
     this.$button && this.$button.addEventListener('click', this._onClick);
 
     this._upgradeProperty('shareUrl');
@@ -56,7 +56,7 @@ class WebShare extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this._buttonSlot.removeEventListener('slotchange', this._onSlotChange);
+    this._buttonSlot && this._buttonSlot.removeEventListener('slotchange', this._onSlotChange);
     this.$button && this.$button.removeEventListener('click', this._onClick);
   }
 
@@ -181,9 +181,7 @@ class WebShare extends HTMLElement {
   _onSlotChange(evt) {
     if (evt.target && evt.target.name === 'button') {
       this.$button && this.$button.removeEventListener('click', this._onClick);
-      this.$button = this._buttonSlot.assignedNodes({ flatten: true }).find(el => {
-        return el.nodeType === 1 && (el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button');
-      });
+      this.$button = this._getButton();
 
       if (this.$button) {
         this.$button.addEventListener('click', this._onClick);
@@ -193,6 +191,16 @@ class WebShare extends HTMLElement {
         }
       }
     }
+  }
+
+  _getButton() {
+    if (!this._buttonSlot) {
+      return null;
+    }
+
+    return this._buttonSlot.assignedNodes({ flatten: true }).find(el => {
+      return el.nodeType === 1 && (el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button');
+    });
   }
 
   /**
