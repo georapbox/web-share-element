@@ -198,8 +198,8 @@ class WebShare extends HTMLElement {
       return null;
     }
 
-    return this._buttonSlot.assignedNodes({ flatten: true }).find(el => {
-      return el.nodeType === 1 && (el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button');
+    return this._buttonSlot.assignedElements({ flatten: true }).find(el => {
+      return el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button';
     });
   }
 
