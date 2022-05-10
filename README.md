@@ -7,7 +7,7 @@
 [license]: https://georapbox.mit-license.org/@2022
 [changelog]: https://github.com/georapbox/web-share-element/blob/main/CHANGELOG.md
 
-# &lt;web-share&gt; element
+# &lt;web-share&gt;
 
 A custom element that implements the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) to share user-defined data.
 
