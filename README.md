@@ -62,16 +62,14 @@ web-share::part(button button--disabled) {
 
 ## API
 
-### Properties/Attributes
-| Property | Attribute | Type | Default | Description |
-| --------- | -------- | ---- | ------- | ----------- |
-| `shareUrl` | `share-url` | String | `null` | Optional. A string representing a URL to be shared. |
-| `shareTitle` | `share-title` | String | `null` | Optional. A string representing a title to be shared. |
-| `shareText` | `share-text` | String | `null` | Optional. A string representing text to be shared. |
+### Properties
+| Name | Reflects | Type | Default | Description |
+| ---- | -------- | ---- | ------- | ----------- |
+| `shareUrl`<br>*`share-url`* | ✓ | String | `null` | Optional. A string representing a URL to be shared. |
+| `shareTitle`<br>*`share-title`* | ✓ | String | `null` | Optional. A string representing a title to be shared. |
+| `shareText`<br>*`share-text`* | ✓ | String | `null` | Optional. A string representing text to be shared. |
 | `shareFiles` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
-| `disabled` | `disabled` | Boolean | `false` | Optional. Defines if the share button is disabled. |
-
-All of the above properties reflect their values as HTML attributes to keep the element's DOM representation in sync with its JavaScript state. The only exception is the `shareFiles` property.
+| `disabled` | ✓ | Boolean | `false` | Optional. Defines if the share button is disabled. |
 
 ### Slots
 
