@@ -148,17 +148,20 @@ class WebShare extends HTMLElement {
 
       this.dispatchEvent(new CustomEvent('web-share:success', {
         bubbles: true,
+        composed: true,
         detail: { shareData }
       }));
     } catch (error) {
       if (error.name === 'AbortError') {
         return this.dispatchEvent(new Event('web-share:abort', {
-          bubbles: true
+          bubbles: true,
+          composed: true
         }));
       }
 
       this.dispatchEvent(new CustomEvent('web-share:error', {
         bubbles: true,
+        composed: true,
         detail: { error }
       }));
     }
@@ -172,7 +175,8 @@ class WebShare extends HTMLElement {
     }
 
     this.dispatchEvent(new Event('web-share:click', {
-      bubbles: true
+      bubbles: true,
+      composed: true
     }));
 
     this.share();
