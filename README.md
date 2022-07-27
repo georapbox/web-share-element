@@ -94,39 +94,12 @@ web-share::part(button button--disabled) {
 
 ### Events
 
-`web-share:click` - Emitted when share button is clicked.
-
-```js
-document.addEventListener('web-share:click', evt => {
-  console.log('Share button clicked');
-});
-```
-
-`web-share:success` - Emitted when share is successful.
-
-```js
-document.addEventListener('web-share:success', evt => {
-  console.log(evt.detail);
-  // => { shareData: { url: 'https://developer.mozilla.org', title: 'MDN', text: 'Learn web development on MDN!' } }
-});
-```
-
-`web-share:abort` - Emitted when share is aborted.
-
-```js
-document.addEventListener('web-share:abort', () => {
-  console.log('Share is aborted');
-});
-```
-
-`web-share:error` - Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions).
-
-```js
-document.addEventListener('web-share:error', evt => {
-  console.log(evt.detail);
-  // => { error: TypeError: navigator.share is not a function }
-});
-```
+| Name | Description | Event Detail |
+| ---- | ----------- | ------------ |
+| `web-share:click` | Emitted when share button is clicked. | - |
+| `web-share:success` | Emitted when share is successful. | `{ shareData: { url?: String, title?: String, text?: String, files?: File[] } }` |
+| `web-share:abort` | Emitted when share is aborted. | - |
+| `web-share:error` | Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions). | `{ error: TypeError }` |
 
 ## Utilities
 
