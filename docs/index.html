@@ -7,62 +7,60 @@
   <title>&lt;web-share&gt;</title>
   <meta name="description" content="A custom element that implements the Web Share API to share user-defined data.">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="styles/water.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>&lt;web-share&gt;</h1>
+  <h1>&lt;web-share&gt;</h1>
 
-    <p>A custom element that implements the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share" target="_blank" rel="noopener noreferrer">Web Share API</a> to share user-defined data.</p>
+  <p>A custom element that implements the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share" target="_blank" rel="noopener noreferrer">Web Share API</a> to share user-defined data.</p>
 
-    <h2>Example</h2>
+  <h2>Example</h2>
 
-    <form name="props-form">
-      <div>
-        <label for="shareUrl">Url:</label>
-        <input class="form-control" id="shareUrl" type="text" name="shareUrl">
-      </div>
+  <form name="props-form">
+    <div class="form-group">
+      <label for="shareUrl">Url:</label>
+      <input class="form-control" id="shareUrl" type="text" name="shareUrl">
+    </div>
 
-      <div>
-        <label for="shareTitle">Title:</label>
-        <input class="form-control" id="shareTitle" type="text" name="shareTitle">
-      </div>
+    <div class="form-group">
+      <label for="shareTitle">Title:</label>
+      <input class="form-control" id="shareTitle" type="text" name="shareTitle">
+    </div>
 
-      <div>
-        <label for="shareText">Text:</label>
-        <input class="form-control" id="shareText" type="text" name="shareText">
-      </div>
+    <div class="form-group">
+      <label for="shareText">Text:</label>
+      <input class="form-control" id="shareText" type="text" name="shareText">
+    </div>
 
-      <div>
-        <label for="shareFiles">Files:</label>
-        <input class="form-control" id="shareFiles" type="file" name="shareFiles" multiple>
-      </div>
-    </form>
+    <div class="form-group">
+      <label for="shareFiles">Files:</label>
+      <input class="form-control" id="shareFiles" type="file" name="shareFiles" multiple>
+    </div>
+  </form>
 
-    <web-share>
-      <span slot="button-content">
-        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" width="20" height="20"><title>Share Social</title><circle cx="128" cy="256" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="112" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="400" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94M342.17 135.53l-172.34 96.94"/></svg>
-        Share
-      </span>
-    </web-share>
+  <web-share>
+    <button type="button" slot="button">
+      <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" width="20" height="20"><title>Share Social</title><circle cx="128" cy="256" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="112" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="384" cy="400" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M169.83 279.53l172.34 96.94M342.17 135.53l-172.34 96.94"/></svg>
+      Share
+    </button>
+  </web-share>
 
-    <p class="not-supported-error" hidden></p>
+  <p class="not-supported-error" hidden></p>
 
-    <pre id="console"></pre>
+  <pre><code id="console"></code></pre>
 
-    <h2>Source</h2>
+  <h2>Source</h2>
 
-    <p>
-      Source code and documentation can be found in <a href="https://github.com/georapbox/web-share-element" target="_blank" rel="noreferrer noopener">Github repository</a>.
-    </p>
+  <p>
+    Source code and documentation can be found in <a href="https://github.com/georapbox/web-share-element" target="_blank" rel="noreferrer noopener">Github repository</a>.
+  </p>
 
-    <h2>License</h2>
+  <h2>License</h2>
 
-    <p>
-      <a href="https://georapbox.mit-license.org/@2022" target="_blank" rel="noreferrer noopener">The MIT License (MIT)</a>
-    </p>
-  </div>
-
-  <script type="module" src="main.js"></script>
+  <p>
+    <a href="https://georapbox.mit-license.org/@2022" target="_blank" rel="noreferrer noopener">The MIT License (MIT)</a>
+  </p>
 </body>
 </html>

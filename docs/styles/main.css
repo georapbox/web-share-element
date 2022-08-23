@@ -1,0 +1,62 @@
+:root {
+  --error-color: #f53939;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --error-color: #fd7878;
+  }
+}
+
+.not-supported-error {
+  color: var(--error-color);
+}
+
+.not-supported-error[hidden] {
+  display: none;
+}
+
+#console:empty {
+  display: none;
+}
+
+form {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  color: var(--button-text-color);
+  background-color: var(--button-base);
+  margin-right: 0.5rem;
+  border: 0;
+  border-radius: 0.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+/* Component custom styling */
+web-share:not(:defined) {
+  display: none;
+}
+
+web-share {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+web-share button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
