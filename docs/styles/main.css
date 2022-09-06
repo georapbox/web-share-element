@@ -1,4 +1,5 @@
 :root {
+  --body-max-width: 1000px;
   --error-color: #f53939;
 }
 
