@@ -1,5 +1,5 @@
 const isLocalhost = window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost');
-const componentUrl = isLocalhost ? '../../src/web-share.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/web-share.min.js';
+const componentUrl = isLocalhost ? '../../dist/web-share.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/web-share.js';
 
 import(componentUrl).then(res => {
   const { WebShare } = res;

@@ -24,7 +24,7 @@ $ npm install --save @georapbox/web-share-element
 ### Script
 
 ```js
-import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.min.js';
+import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.js';
 
 // Manually define the element.
 WebShare.defineCustomElement();
@@ -33,7 +33,7 @@ WebShare.defineCustomElement();
 Alternatively, you can import the automatically defined custom element.
 
 ```js
-import './node_modules/@georapbox/web-share-element/dist/web-share-defined.min.js';
+import './node_modules/@georapbox/web-share-element/dist/web-share-defined.js';
 ```
 
 ### Markup
@@ -112,12 +112,12 @@ Returns `true` if Web Share API is supported by the platform, otherwise returns 
 > NOTE: You don't necessarily need to check for Web Share API support. The component handles errors regarding support internally; you can catch them by registering the `web-share:error` event. The utility might come handy for a scenario that you want to dynamically import the custom element only if the API is supported (check example below). In cases that the Web Share API is partially supported, (eg Firefox in Android supports sharing `url`, `text` and `title` but not `files` yet), the component will try to share the other shareable data if provided and will omit any files the user is trying to share.
 
 ```js
-import { isWebShareSupported } from './node_modules/@georapbox/web-share-element/dist/is-web-share-supported.min.js';
+import { isWebShareSupported } from './node_modules/@georapbox/web-share-element/dist/is-web-share-supported.js';
 
 // Check if Web Share API is supported
 if (isWebShareSupported()) {
   // Import component dynamically...
-  const { WebShare } = await import('./node_modules/@georapbox/web-share-element/dist/web-share.min.js');
+  const { WebShare } = await import('./node_modules/@georapbox/web-share-element/dist/web-share.js');
 
   WebShare.defineCustomElement();
 }
@@ -169,7 +169,7 @@ Below is a full usage example, with custom configuration and styling. Check the 
   </web-share>
 
   <script type="module">
-    import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.min.js';
+    import { WebShare } from './node_modules/@georapbox/web-share-element/dist/web-share.js';
 
     WebShare.defineCustomElement();
 

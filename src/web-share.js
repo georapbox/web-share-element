@@ -6,25 +6,11 @@ template.innerHTML = html`
   <slot name="button"><button type="button" part="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
-/**
- * @slot button - The share button.
- * @slot button-content - The share button's content.
- *
- * @csspart button - The share button.
- * @csspart button--disabled - The share button when is disabled.
- *
- * @event web-share:click - Emitted when share button is clicked.
- * @event web-share:success - Emitted when share is successful.
- * @event web-share:error - Emitted when share fails for any reason.
- * @event web-share:abort - Emitted when share is aborted.
- *
- * @example
- *
- * <web-share share-url="https://developer.mozilla.org" share-title="MDN" share-text="Learn web development on MDN!">
- *   <button slot="button" type="button">Share this page</button>
- * </web-share>
- */
 class WebShare extends HTMLElement {
+  #buttonSlot;
+  #buttonEl;
+  #files = null;
+
   constructor() {
     super();
 
@@ -33,11 +19,8 @@ class WebShare extends HTMLElement {
       this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
-    this._buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
-    this.$button = this._getButton();
-
-    this._onClick = this._onClick.bind(this);
-    this._onSlotChange = this._onSlotChange.bind(this);
+    this.#buttonSlot = this.shadowRoot.querySelector('slot[name="button"]');
+    this.#buttonEl = this.#getButton();
   }
 
   static get observedAttributes() {
@@ -45,28 +28,28 @@ class WebShare extends HTMLElement {
   }
 
   connectedCallback() {
-    this._buttonSlot && this._buttonSlot.addEventListener('slotchange', this._onSlotChange);
-    this.$button && this.$button.addEventListener('click', this._onClick);
+    this.#upgradeProperty('shareUrl');
+    this.#upgradeProperty('shareTitle');
+    this.#upgradeProperty('shareText');
+    this.#upgradeProperty('shareFiles');
+    this.#upgradeProperty('disabled');
 
-    this._upgradeProperty('shareUrl');
-    this._upgradeProperty('shareTitle');
-    this._upgradeProperty('shareText');
-    this._upgradeProperty('shareFiles');
-    this._upgradeProperty('disabled');
+    this.#buttonSlot && this.#buttonSlot.addEventListener('slotchange', this.#onSlotChange);
+    this.#buttonEl && this.#buttonEl.addEventListener('click', this.#onClick);
   }
 
   disconnectedCallback() {
-    this._buttonSlot && this._buttonSlot.removeEventListener('slotchange', this._onSlotChange);
-    this.$button && this.$button.removeEventListener('click', this._onClick);
+    this.#buttonSlot && this.#buttonSlot.removeEventListener('slotchange', this.#onSlotChange);
+    this.#buttonEl && this.#buttonEl.removeEventListener('click', this.#onClick);
   }
 
   attributeChangedCallback(name) {
-    if (name === 'disabled' && this.$button) {
-      this.$button.disabled = this.disabled;
-      this.$button.setAttribute('aria-disabled', this.disabled);
+    if (name === 'disabled' && this.#buttonEl) {
+      this.#buttonEl.disabled = this.disabled;
+      this.#buttonEl.setAttribute('aria-disabled', this.disabled);
 
-      if (this.$button.part && this.$button.part.contains('button')) {
-        this.$button.part.toggle('button--disabled', this.disabled);
+      if (this.#buttonEl.part && this.#buttonEl.part.contains('button')) {
+        this.#buttonEl.part.toggle('button--disabled', this.disabled);
       }
     }
   }
@@ -108,11 +91,11 @@ class WebShare extends HTMLElement {
   }
 
   get shareFiles() {
-    return this._files || null;
+    return this.#files;
   }
 
   set shareFiles(value) {
-    this._files = value;
+    this.#files = value;
   }
 
   async share() {
@@ -167,7 +150,7 @@ class WebShare extends HTMLElement {
     }
   }
 
-  _onClick(evt) {
+  #onClick = evt => {
     evt.preventDefault();
 
     if (this.disabled) {
@@ -180,29 +163,29 @@ class WebShare extends HTMLElement {
     }));
 
     this.share();
-  }
+  };
 
-  _onSlotChange(evt) {
+  #onSlotChange = evt => {
     if (evt.target && evt.target.name === 'button') {
-      this.$button && this.$button.removeEventListener('click', this._onClick);
-      this.$button = this._getButton();
+      this.#buttonEl && this.#buttonEl.removeEventListener('click', this.#onClick);
+      this.#buttonEl = this.#getButton();
 
-      if (this.$button) {
-        this.$button.addEventListener('click', this._onClick);
+      if (this.#buttonEl) {
+        this.#buttonEl.addEventListener('click', this.#onClick);
 
-        if (this.$button.nodeName !== 'BUTTON' && !this.$button.hasAttribute('role')) {
-          this.$button.setAttribute('role', 'button');
+        if (this.#buttonEl.nodeName !== 'BUTTON' && !this.#buttonEl.hasAttribute('role')) {
+          this.#buttonEl.setAttribute('role', 'button');
         }
       }
     }
-  }
+  };
 
-  _getButton() {
-    if (!this._buttonSlot) {
+  #getButton() {
+    if (!this.#buttonSlot) {
       return null;
     }
 
-    return this._buttonSlot.assignedElements({ flatten: true }).find(el => {
+    return this.#buttonSlot.assignedElements({ flatten: true }).find(el => {
       return el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button';
     });
   }
@@ -215,7 +198,7 @@ class WebShare extends HTMLElement {
    * upgraded element would miss that property and the instance property
    * would prevent the class property setter from ever being called.
    */
-  _upgradeProperty(prop) {
+  #upgradeProperty(prop) {
     if (Object.prototype.hasOwnProperty.call(this, prop)) {
       const value = this[prop];
       delete this[prop];
