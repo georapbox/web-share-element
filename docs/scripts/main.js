@@ -52,7 +52,7 @@ import(componentUrl).then(res => {
   console.error(err);
 });
 
-import(isLocalhost ? '../../src/is-web-share-supported.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/is-web-share-supported.min.js').then(res => {
+import(isLocalhost ? '../../dist/is-web-share-supported.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/is-web-share-supported.js').then(res => {
   const { isWebShareSupported } = res;
 
   if (!isWebShareSupported()) {
