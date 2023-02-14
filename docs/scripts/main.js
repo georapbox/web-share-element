@@ -29,11 +29,6 @@ import(componentUrl).then(res => {
     }
   });
 
-  document.addEventListener('web-share:click', evt => {
-    console.log('web-share:click -> ', evt);
-    $console.innerHTML += `<div>$ <span class="info">web-share:click</span> -> Button clicked</div>`;
-  });
-
   document.addEventListener('web-share:success', evt => {
     console.log('web-share:success -> ', evt.detail);
     $console.innerHTML += `<div>$ <span class="success">web-share:success</span> -> Share was successful</div>`;
