@@ -9,6 +9,12 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .not-supported-error {
   color: var(--error-color);
 }
