@@ -1,5 +1,5 @@
 const isLocalhost = window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost');
-const componentUrl = isLocalhost ? '../../dist/web-share.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/web-share.js';
+const componentUrl = isLocalhost ? '../../dist/web-share.js' : '../lib/web-share.js';
 
 import(componentUrl).then(res => {
   const { WebShare } = res;
@@ -47,7 +47,7 @@ import(componentUrl).then(res => {
   console.error(err);
 });
 
-import(isLocalhost ? '../../dist/is-web-share-supported.js' : 'https://unpkg.com/@georapbox/web-share-element/dist/is-web-share-supported.js').then(res => {
+import(isLocalhost ? '../../dist/is-web-share-supported.js' : '../lib/is-web-share-supported.js').then(res => {
   const { isWebShareSupported } = res;
 
   if (!isWebShareSupported()) {
