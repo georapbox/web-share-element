@@ -1,12 +1,5 @@
 :root {
-  --body-max-width: 1000px;
-  --error-color: #f53939;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --error-color: #fd7878;
-  }
+  --body-max-width: 700px;
 }
 
 *,
@@ -16,11 +9,19 @@
 }
 
 .not-supported-error {
-  color: var(--error-color);
+  padding: 1rem;
+  border: 1px solid #f1aeb5;
+  border-radius: 0.25rem;
+  background-color: #f8d7da;
+  color: #58151c;
 }
 
 .not-supported-error[hidden] {
   display: none;
+}
+
+#console {
+  max-height: 300px;
 }
 
 #console:empty {
@@ -59,7 +60,7 @@ web-share:not(:defined) {
 
 web-share {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 web-share button {

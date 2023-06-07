@@ -32,16 +32,19 @@ import(componentUrl).then(res => {
   document.addEventListener('web-share:success', evt => {
     console.log('web-share:success -> ', evt.detail);
     $console.innerHTML += `<div>$ <span class="success">web-share:success</span> -> Share was successful</div>`;
+    $console.scrollTop = $console.scrollHeight;
   });
 
   document.addEventListener('web-share:error', evt => {
     console.log('web-share:error -> ', evt.detail);
     $console.innerHTML += `<div>$ <span class="error">web-share:error</span> -> ${evt.detail.error.name}: ${evt.detail.error.message}</div>`;
+    $console.scrollTop = $console.scrollHeight;
   });
 
   document.addEventListener('web-share:abort', () => {
     console.log('web-share:abort', 'Share is aborted');
     $console.innerHTML += `<div>$ <span class="warning">web-share:abort</span> -> Share is aborted</div>`;
+    $console.scrollTop = $console.scrollHeight;
   });
 }).catch(err => {
   console.error(err);
