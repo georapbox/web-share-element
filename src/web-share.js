@@ -46,7 +46,6 @@ template.innerHTML = /* html */ `
  * @csspart button - The button to share content.
  * @csspart button--disabled - The button to share content when disabled.
  *
- * @event web-share:click - Fired when the button is clicked.
  * @event web-share:success - Fired when the share operation is successful.
  * @event web-share:abort - Fired when the share operation is aborted.
  * @event web-share:error - Fired when the share operation fails.
@@ -253,11 +252,6 @@ class WebShare extends HTMLElement {
     if (this.disabled) {
       return;
     }
-
-    this.dispatchEvent(new Event('web-share:click', {
-      bubbles: true,
-      composed: true
-    }));
 
     this.share();
   };
