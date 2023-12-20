@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v3.1.0 (2022-12-XX)
+
+### Bug Fixes
+
+- Fixed `isWebShareSupported()` utility bug that would not handle `navigator.canShare()` for different shareable data types.
+
+### Other Changes
+
+- Added Typescript types declaration file.
+- Updated dev dependencies.
+
 ## v3.0.0 (2022-11-18)
 
 - Refactor to use private class fields.

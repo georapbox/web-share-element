@@ -65,11 +65,11 @@ web-share::part(button button--disabled) {
 ### Properties
 | Name | Reflects | Type | Default | Description |
 | ---- | -------- | ---- | ------- | ----------- |
-| `shareUrl`<br>*`share-url`* | ✓ | String | `null` | Optional. A string representing a URL to be shared. |
-| `shareTitle`<br>*`share-title`* | ✓ | String | `null` | Optional. A string representing a title to be shared. |
-| `shareText`<br>*`share-text`* | ✓ | String | `null` | Optional. A string representing text to be shared. |
-| `shareFiles` | - | Array | `null` | Optional. An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
-| `disabled` | ✓ | Boolean | `false` | Optional. Defines if the share button is disabled. |
+| `shareUrl`<br>*`share-url`* | ✓ | String | `''` | A string representing a URL to be shared. |
+| `shareTitle`<br>*`share-title`* | ✓ | String | `''` | A string representing a title to be shared. |
+| `shareText`<br>*`share-text`* | ✓ | String | `''` | A string representing text to be shared. |
+| `shareFiles` | - | Array | `null` | An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
+| `disabled` | ✓ | Boolean | `false` | Defines if the share button is disabled. |
 
 ### Slots
 
@@ -90,7 +90,7 @@ web-share::part(button button--disabled) {
 | Name | Type | Description | Arguments |
 | ---- | ---- | ----------- | --------- |
 | `defineCustomElement` | Static | Defines/registers the custom element with the name provided. If no name is provided, the default name is used. The method checks if the element is already defined, hence will skip trying to redefine it. | `elementName='web-share'` |
-| `share` | Prototype | Shares the shareable data taken from the element's properties. | - |
+| `share` | Instance | Shares the shareable data taken from the element's properties. | - |
 
 ### Events
 

@@ -14,16 +14,16 @@ describe('<web-share>', () => {
   it('default properties', async () => {
     const el = await fixture(html`<web-share></web-share>`);
 
-    expect(el.shareUrl).to.be.null;
+    expect(el.shareUrl).to.equal('');
     expect(el.getAttribute('share-url')).to.be.null;
 
-    expect(el.shareTitle).to.be.null;
+    expect(el.shareTitle).to.equal('');
     expect(el.getAttribute('share-title')).to.be.null;
 
-    expect(el.shareText).to.be.null;
+    expect(el.shareText).to.equal('');
     expect(el.getAttribute('share-text')).to.be.null;
 
-    expect(el.shareFiles).to.be.null;
+    expect(el.shareFiles).to.be.an('array').that.is.empty;
     expect(el.getAttribute('share-files')).to.be.null;
 
     expect(el.disabled).to.be.false;
@@ -75,8 +75,8 @@ describe('<web-share>', () => {
     expect(el.shareText).to.equal('Share text');
     expect(el.getAttribute('share-text')).to.equal('Share text');
 
-    expect((el.shareFiles)).to.be.an('array').that.is.not.empty;
-    expect((el.shareFiles)).to.deep.include(file);
+    expect(el.shareFiles).to.be.an('array').that.is.not.empty;
+    expect(el.shareFiles).to.deep.include(file);
 
     expect(el.disabled).to.be.true;
     expect(el.getAttribute('disabled')).to.equal('');
