@@ -17,9 +17,16 @@
  * @property {File[]} [files] - The files to share.
  */
 
+const styles = /* css */`
+  :host {
+    display: inline-block;
+  }
+`;
+
 const template = document.createElement('template');
 
 template.innerHTML = /* html */ `
+  <style>${styles}</style>
   <slot name="button"><button type="button" part="button"><slot name="button-content">Share</slot></button></slot>
 `;
 
