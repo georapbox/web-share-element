@@ -1,10 +1,11 @@
 # CHANGELOG
 
-## v3.1.0 (2022-12-XX)
+## v3.1.0 (2023-12-XX)
 
 ### Bug Fixes
 
 - Fixed `isWebShareSupported()` utility bug that would not handle `navigator.canShare()` for different shareable data types.
+- Set `delegateFocus` property to `true` when attaching the shadow root to the host element to delegate focus to the first focusable element in the shadow root.
 
 ### Other Changes
 

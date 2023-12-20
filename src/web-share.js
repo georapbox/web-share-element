@@ -68,7 +68,7 @@ class WebShare extends HTMLElement {
     super();
 
     if (!this.shadowRoot) {
-      const shadowRoot = this.attachShadow({ mode: 'open' });
+      const shadowRoot = this.attachShadow({ mode: 'open', delegatesFocus: true });
       shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
