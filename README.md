@@ -107,7 +107,15 @@ web-share::part(button button--disabled) {
 isWebShareSupported()
 ```
 
-Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. By default, it checks if `navigator.share` is supported. If you want to also check if files can be shared, you can pass `{files: [File, ...]}` as argument. The `files` property needs to be an array of `File` objects.
+Returns `true` if Web Share API is supported by the platform, otherwise returns `false`. By default, it checks if `navigator.share` is supported. If you want to check for support of a specific shareable data type, you can pass an object as argument with the shareable data you want to check for support. For example, if you want to check if sharing files is supported, you can pass `{files: [File, ...]}` as argument.
+
+```js
+isWebShareSupported({ 
+  files: [new File(['foo'], 'foo.txt', { type: 'text/plain', })]
+});
+```
+
+also check if certain  can be shared, you can pass `{files: [File, ...]}` as argument. The `files` property needs to be an array of `File` objects.
 
 > NOTE: You don't necessarily need to check for Web Share API support. The component handles errors regarding support internally; you can catch them by registering the `web-share:error` event. The utility might come handy for a scenario that you want to dynamically import the custom element only if the API is supported (check example below). In cases that the Web Share API is partially supported, (eg Firefox in Android supports sharing `url`, `text` and `title` but not `files` yet), the component will try to share the other shareable data if provided and will omit any files the user is trying to share.
 
