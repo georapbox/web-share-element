@@ -12,7 +12,6 @@ describe('<web-share>', () => {
   describe('accessibility', () => {
     it('passes accessibility test', async () => {
       const el = await fixture(html`<web-share></web-share>`);
-
       await expect(el).to.be.accessible();
     });
 
@@ -24,6 +23,12 @@ describe('<web-share>', () => {
     `);
 
       expect(el).lightDom.to.equal('<a href="#" slot="button" role="button">Share this page</a>');
+    });
+
+    it('aria-disabled="true" is added on button if disabled', async () => {
+      const el = await fixture(html`<web-share disabled></web-share>`);
+      const btn = el.shadowRoot.querySelector('button');
+      expect(btn).to.have.attribute('aria-disabled', 'true');
     });
   });
 

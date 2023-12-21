@@ -87,6 +87,24 @@ class WebShare extends HTMLElement {
   }
 
   /**
+   * Lifecycle method that is called when attributes are changed, added, removed, or replaced.
+   *
+   * @param {string} name - The name of the attribute.
+   * @param {string} oldValue - The old value of the attribute.
+   * @param {string} newValue - The new value of the attribute.
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'disabled' && oldValue !== newValue && this.#buttonEl) {
+      this.#buttonEl.toggleAttribute('disabled', this.disabled);
+      this.#buttonEl.setAttribute('aria-disabled', this.disabled.toString());
+
+      if (this.#buttonEl.part && this.#buttonEl.part.contains('button')) {
+        this.#buttonEl.part.toggle('button--disabled', this.disabled);
+      }
+    }
+  }
+
+  /**
    * Lifecycle method that is called when the element is added to the DOM.
    */
   connectedCallback() {
@@ -106,24 +124,6 @@ class WebShare extends HTMLElement {
   disconnectedCallback() {
     this.#buttonSlot?.removeEventListener('slotchange', this.#handleSlotChange);
     this.#buttonEl?.removeEventListener('click', this.#handleClick);
-  }
-
-  /**
-   * Lifecycle method that is called when attributes are changed, added, removed, or replaced.
-   *
-   * @param {string} name - The name of the attribute.
-   * @param {string} oldValue - The old value of the attribute.
-   * @param {string} newValue - The new value of the attribute.
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'disabled' && oldValue !== newValue && this.#buttonEl) {
-      this.#buttonEl.setAttribute('disabled', this.disabled.toString());
-      this.#buttonEl.setAttribute('aria-disabled', this.disabled.toString());
-
-      if (this.#buttonEl.part && this.#buttonEl.part.contains('button')) {
-        this.#buttonEl.part.toggle('button--disabled', this.disabled);
-      }
-    }
   }
 
   /**
