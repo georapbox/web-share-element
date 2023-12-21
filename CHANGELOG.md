@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v3.1.0 (2023-12-21)
+
+### Bug Fixes
+
+- Fixed `isWebShareSupported()` utility bug that would not handle `navigator.canShare()` for different shareable data types.
+- Set `delegateFocus` property to `true` when attaching the shadow root to the host element to delegate focus to the first focusable element in the shadow root.
+
+### Other Changes
+
+- Expose `AbortError` on event detail of `web-share:abort` event.
+- Added Typescript types declarations.
+- Updated dev dependencies.
+
 ## v3.0.0 (2022-11-18)
 
 - Refactor to use private class fields.
