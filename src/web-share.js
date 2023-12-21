@@ -232,9 +232,10 @@ class WebShare extends HTMLElement {
       }));
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
-        this.dispatchEvent(new Event('web-share:abort', {
+        this.dispatchEvent(new CustomEvent('web-share:abort', {
           bubbles: true,
-          composed: true
+          composed: true,
+          detail: { error }
         }));
 
         return;

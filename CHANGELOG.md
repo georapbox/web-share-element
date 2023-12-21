@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v3.1.0 (2023-12-XX)
+## v3.1.0 (2023-12-21)
 
 ### Bug Fixes
 
@@ -9,7 +9,8 @@
 
 ### Other Changes
 
-- Added Typescript types declaration file.
+- Expose `AbortError` on event detail of `web-share:abort` event.
+- Added Typescript types declarations.
 - Updated dev dependencies.
 
 ## v3.0.0 (2022-11-18)

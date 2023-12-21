@@ -95,7 +95,7 @@ customElements.whenDefined('web-share').then(() => {
 | Name | Description | Event Detail |
 | ---- | ----------- | ------------ |
 | `web-share:success` | Emitted when share is successful. | `{ shareData: { url?: String, title?: String, text?: String, files?: File[] } }` |
-| `web-share:abort` | Emitted when share is aborted. | - |
+| `web-share:abort` | Emitted when share is aborted. | `{ error: AbortError }` |
 | `web-share:error` | Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions). | `{ error: TypeError }` |
 
 ## Utilities
