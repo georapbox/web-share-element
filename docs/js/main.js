@@ -1,51 +1,35 @@
+import '../lib/browser-window.js';
+
 const isLocalhost = window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost');
 const componentUrl = isLocalhost ? '../../dist/web-share.js' : '../lib/web-share.js';
+
+const errorDialog = document.querySelector('#share-error-dialog');
+const errorPlaceholder = document.querySelector('#share-error-message');
 
 import(componentUrl).then(res => {
   const { WebShare } = res;
 
   WebShare.defineCustomElement();
 
-  const $console = document.getElementById('console');
-  const $webShareEl = document.querySelector('web-share');
-  const $form = document.forms['props-form'];
+  const handleEvents = evt => {
+    evt.detail ? console.log(evt.type, evt.detail) : console.log(evt.type);
 
-  $form.shareUrl.value = $webShareEl.shareUrl = window.location.href;
-  $form.shareTitle.value = $webShareEl.shareTitle = 'This is a title';
-  $form.shareText.value = $webShareEl.shareText = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.';
-
-  $form.addEventListener('input', evt => {
-    const t = evt.target;
-
-    switch (t.name) {
-      case 'shareUrl':
-      case 'shareTitle':
-      case 'shareText':
-        $webShareEl[t.name] = t.value;
-        break;
-      case 'shareFiles':
-        $webShareEl.shareFiles = [...t.files];
-        break;
+    if (evt.type === 'web-share:error') {
+      errorPlaceholder.textContent = evt.detail.error?.message || 'Unknown error occurred.';
+      errorDialog.showModal();
     }
-  });
+  };
 
-  document.addEventListener('web-share:success', evt => {
-    console.log('web-share:success -> ', evt.detail);
-    $console.innerHTML += `<div>$ <span class="success">web-share:success</span> -> Share was successful</div>`;
-    $console.scrollTop = $console.scrollHeight;
-  });
+  const webShareEl = document.querySelector('web-share');
 
-  document.addEventListener('web-share:error', evt => {
-    console.log('web-share:error -> ', evt.detail);
-    $console.innerHTML += `<div>$ <span class="error">web-share:error</span> -> ${evt.detail.error.name}: ${evt.detail.error.message}</div>`;
-    $console.scrollTop = $console.scrollHeight;
-  });
+  webShareEl.addEventListener('web-share:success', handleEvents);
+  webShareEl.addEventListener('web-share:error', handleEvents);
+  webShareEl.addEventListener('web-share:abort', handleEvents);
 
-  document.addEventListener('web-share:abort', () => {
-    console.log('web-share:abort', 'Share is aborted');
-    $console.innerHTML += `<div>$ <span class="warning">web-share:abort</span> -> Share is aborted</div>`;
-    $console.scrollTop = $console.scrollHeight;
-  });
+  webShareEl.shareFiles = [
+    new File(['file content'], 'file-1.txt', { type: 'text/plain' }),
+    new File(['file content'], 'file-2.txt', { type: 'text/plain' })
+  ];
 }).catch(err => {
   console.error(err);
 });
@@ -56,8 +40,13 @@ import(isLocalhost ? '../../dist/is-web-share-supported.js' : '../lib/is-web-sha
   if (!isWebShareSupported()) {
     const errorPlaceholder = document.querySelector('.not-supported-error');
     errorPlaceholder.hidden = false;
-    errorPlaceholder.textContent = 'Web Share API is not supported by your browser.';
   }
 }).catch(err => {
   console.error(err);
+});
+
+errorDialog.addEventListener('click', evt => {
+  if (evt.target === evt.currentTarget) {
+    errorDialog.close();
+  }
 });
