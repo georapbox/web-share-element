@@ -8,7 +8,6 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --card-bg-color: #283647;
-    --links-hover: #5bb4f9;
     --share-button-bg-color: var(--links);
     --share-button-color: #000000;
   }
@@ -152,8 +151,8 @@ web-share button {
   color: var(--share-button-color);
 }
 
-web-share button:hover,
-web-share button:active {
+web-share button:hover:not(:disabled),
+web-share button:active:not(:disabled) {
   background-color: var(--links);
 }
 

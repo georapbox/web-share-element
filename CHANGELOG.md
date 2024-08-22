@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v3.1.1 (2024-08-22)
+
+- Replace parcel with esbuild for bundling.
+- Update ESLint to use flat configuration.
+- Use Prettier for code formatting.
+- Update dev dependencies.
+
 ## v3.1.0 (2023-12-21)
 
 ### Bug Fixes
@@ -56,7 +63,7 @@
 - Export utility function `isWebShareSupported()` to check for Web Share API support.
 - Add `web-share:abort` when share is aborted. Previously, user needed to manually check if error's name was `AbortError` from the `web-share:error` event.
 
-The reasoning behind removing the `hideIfUnsupported` property and `WebShare.isSupported()` static method was in order to give more flexibility to the user by providing a utility function that can check for [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) support. This way, the user can have the freedom to handle the API not being supported at will. For example user might want to dynamically import the component only if the Web Share API is supported.
+The reasoning behind removing the `hideIfUnsupported` property and `WebShare.isSupported()` static method was in order to give more flexibility to the user by providing a utility function that can check for [Web Share API](https://developer.mozilla.org/docs/Web/API/Navigator/share) support. This way, the user can have the freedom to handle the API not being supported at will. For example user might want to dynamically import the component only if the Web Share API is supported.
 
 ## v1.1.0 (2022-03-23)
 

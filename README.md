@@ -2,14 +2,12 @@
 [![npm license](https://img.shields.io/npm/l/@georapbox/web-share-element.svg)](https://www.npmjs.com/package/@georapbox/web-share-element)
 
 [demo]: https://georapbox.github.io/web-share-element/
-[support]: https://caniuse.com/#feat=custom-elementsv1
-[polyfill]: https://github.com/webcomponents/polyfills/tree/master/packages/custom-elements
-[license]: https://georapbox.mit-license.org/@2022
+[license]: https://github.com/georapbox/web-share-element/blob/main/LICENSE
 [changelog]: https://github.com/georapbox/web-share-element/blob/main/CHANGELOG.md
 
 # &lt;web-share&gt;
 
-A custom element that implements the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) to share user-defined data.
+A custom element that implements the [Web Share API](https://developer.mozilla.org/docs/Web/API/Navigator/share) to share user-defined data.
 
 [API documentation](#api) &bull; [Demo][demo]
 
@@ -58,7 +56,7 @@ By default, the component is style-free to remain as less opinionated as possibl
 | `shareUrl`<br>*`share-url`* | ✓ | String | `''` | A string representing a URL to be shared. |
 | `shareTitle`<br>*`share-title`* | ✓ | String | `''` | A string representing a title to be shared. |
 | `shareText`<br>*`share-text`* | ✓ | String | `''` | A string representing text to be shared. |
-| `shareFiles` | - | Array | `[]` | An array of [File](https://developer.mozilla.org/en-US/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
+| `shareFiles` | - | Array | `[]` | An array of [File](https://developer.mozilla.org/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
 | `disabled` | ✓ | Boolean | `false` | Determines if the share button is disabled. |
 
 ### Slots
@@ -96,7 +94,7 @@ customElements.whenDefined('web-share').then(() => {
 | ---- | ----------- | ------------ |
 | `web-share:success` | Emitted when share is successful. | `{ shareData: { url?: String, title?: String, text?: String, files?: File[] } }` |
 | `web-share:abort` | Emitted when share is aborted. | `{ error: AbortError }` |
-| `web-share:error` | Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions). | `{ error: TypeError }` |
+| `web-share:error` | Emitted when share fails for any reason. Here is a [full list of possible exceptions](https://developer.mozilla.org/docs/Web/API/Navigator/share#exceptions). | `{ error: TypeError }` |
 
 ## Utilities
 
@@ -130,14 +128,52 @@ if (isWebShareSupported()) {
 
 For API updates and breaking changes, check the [CHANGELOG][changelog].
 
-## Browser support
+## Development setup
 
-Browsers without native [custom element support][support] require a [polyfill][polyfill].
+### Prerequisites
 
-- Firefox
-- Chrome
-- Microsoft Edge
-- Safari
+The project requires `Node.js` and `npm` to be installed on your environment. Preferrably, use [nvm](https://github.com/nvm-sh/nvm) Node Version Manager and use the version of Node.js specified in the `.nvmrc` file by running `nvm use`.
+
+### Install dependencies
+
+Install the project dependencies by running the following command.
+
+```sh
+npm install
+```
+
+### Build for development
+
+Watch for changes and start a development server by running the following command.
+
+```sh
+npm start
+```
+
+### Linting
+
+Lint the code by running the following command.
+
+```sh
+npm run lint
+```
+
+### Testing
+
+Run the tests by running any of the following commands.
+
+```sh
+npm test
+npm run test:watch # watch mode
+```
+
+### Build for production
+
+Create a production build by running the following command.
+
+```sh
+npm run build
+```
 
 ## License
 

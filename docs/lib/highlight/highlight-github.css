@@ -25,7 +25,7 @@ code.hljs {
  */
 :root {
   --text-color: #24292e;
-  --background-color: #f7f7f7;
+  --background-color: #ffffff;
   --keyword-color: #d73a49;
   --title-color: #6f42c1;
   --syntax-color: #005cc5;
@@ -44,16 +44,6 @@ code.hljs {
   --deletion-background: #ffeef0;
 }
 
-/*!
- * Theme: GitHub Dark
- * Description: Dark theme as seen on github.com
- * Author: github.com
- * Maintainer: @Hirse
- * Updated: 2021-05-15
- *
- * Outdated base version: https://github.com/primer/github-syntax-dark
- * Current colors taken from GitHub's CSS
- */
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #c9d1d9;

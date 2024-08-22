@@ -17,10 +17,10 @@ describe('<web-share>', () => {
 
     it('role="button" is added on button slot if node is not button', async () => {
       const el = await fixture(html`
-      <web-share>
-        <a href="#" slot="button">Share this page</a>
-      </web-share>
-    `);
+        <web-share>
+          <a href="#" slot="button">Share this page</a>
+        </web-share>
+      `);
 
       expect(el).lightDom.to.equal('<a href="#" slot="button" role="button">Share this page</a>');
     });
@@ -109,10 +109,10 @@ describe('<web-share>', () => {
 
     it('change button-content slot', async () => {
       const el = await fixture(html`
-      <web-share>
-        <span slot="button-content">Share this page</span>
-      </web-share>
-    `);
+        <web-share>
+          <span slot="button-content">Share this page</span>
+        </web-share>
+      `);
 
       expect(el).lightDom.to.equal('<span slot="button-content">Share this page</span>');
     });
@@ -134,7 +134,9 @@ describe('<web-share>', () => {
 
   describe('methods', () => {
     it('share method is called', async () => {
-      const el = await fixture(html`<web-share share-url="Share Url" share-title="Share title" share-text="Share text"></web-share>`);
+      const el = await fixture(
+        html`<web-share share-url="Share Url" share-title="Share title" share-text="Share text"></web-share>`
+      );
       const btn = el.shadowRoot.querySelector('button');
       const fn = sinon.spy(el, 'share');
       el.shareFiles = [new File(['foo'], 'foo.txt', { type: 'text/plain' })];

@@ -17,7 +17,7 @@
  * @property {File[]} [files] - The files to share.
  */
 
-const styles = /* css */`
+const styles = /* css */ `
   :host {
     display: inline-block;
   }
@@ -32,7 +32,7 @@ template.innerHTML = /* html */ `
 
 /**
  * @summary A custom element that provides a button to share content.
- * @documentation https://github.com/georapbox/web-share-element
+ * @documentation https://github.com/georapbox/web-share-element#readme
  *
  * @tagname web-share - This is the default tag name, unless overridden by the `defineCustomElement` method.
  *
@@ -215,37 +215,43 @@ class WebShare extends HTMLElement {
       }
 
       if (
-        Array.isArray(this.shareFiles)
-        && this.shareFiles.length > 0
-        && navigator.canShare
-        && navigator.canShare({ files: this.shareFiles })
+        Array.isArray(this.shareFiles) &&
+        this.shareFiles.length > 0 &&
+        navigator.canShare &&
+        navigator.canShare({ files: this.shareFiles })
       ) {
         shareData.files = this.shareFiles;
       }
 
       await navigator.share(shareData);
 
-      this.dispatchEvent(new CustomEvent('web-share:success', {
-        bubbles: true,
-        composed: true,
-        detail: { shareData }
-      }));
-    } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        this.dispatchEvent(new CustomEvent('web-share:abort', {
+      this.dispatchEvent(
+        new CustomEvent('web-share:success', {
           bubbles: true,
           composed: true,
-          detail: { error }
-        }));
+          detail: { shareData }
+        })
+      );
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        this.dispatchEvent(
+          new CustomEvent('web-share:abort', {
+            bubbles: true,
+            composed: true,
+            detail: { error }
+          })
+        );
 
         return;
       }
 
-      this.dispatchEvent(new CustomEvent('web-share:error', {
-        bubbles: true,
-        composed: true,
-        detail: { error }
-      }));
+      this.dispatchEvent(
+        new CustomEvent('web-share:error', {
+          bubbles: true,
+          composed: true,
+          detail: { error }
+        })
+      );
     }
   }
 
@@ -294,9 +300,11 @@ class WebShare extends HTMLElement {
       return null;
     }
 
-    return this.#buttonSlot.assignedElements({ flatten: true }).find(el => {
-      return el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button';
-    }) || null;
+    return (
+      this.#buttonSlot.assignedElements({ flatten: true }).find(el => {
+        return el.nodeName === 'BUTTON' || el.getAttribute('slot') === 'button';
+      }) || null
+    );
   }
 
   /**
@@ -319,6 +327,15 @@ class WebShare extends HTMLElement {
     }
   }
 
+  /**
+   * Defines a custom element with the given name.
+   * The name must contain a dash (-).
+   *
+   * @param {string} [elementName='web-share'] - The name of the custom element.
+   * @example
+   *
+   * ClipboardCopy.defineCustomElement('my-web-share');
+   */
   static defineCustomElement(elementName = 'web-share') {
     if (typeof window !== 'undefined' && !window.customElements.get(elementName)) {
       window.customElements.define(elementName, WebShare);
