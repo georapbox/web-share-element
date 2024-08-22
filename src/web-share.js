@@ -334,7 +334,7 @@ class WebShare extends HTMLElement {
    * @param {string} [elementName='web-share'] - The name of the custom element.
    * @example
    *
-   * ClipboardCopy.defineCustomElement('my-web-share');
+   * WebShare.defineCustomElement('my-web-share');
    */
   static defineCustomElement(elementName = 'web-share') {
     if (typeof window !== 'undefined' && !window.customElements.get(elementName)) {
