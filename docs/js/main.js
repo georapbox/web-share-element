@@ -4,11 +4,22 @@ const url = window.location.href;
 const isLocalhost = url.includes('127.0.0.1') || url.includes('localhost');
 const componentUrl = isLocalhost ? '../../dist/web-share.js' : '../lib/web-share.js';
 const utilUrl = isLocalhost ? '../../dist/is-web-share-supported.js' : '../lib/is-web-share-supported.js';
-const { WebShare } = await import(componentUrl);
-const { isWebShareSupported } = await import(utilUrl);
 const errorDialog = document.querySelector('#share-error-dialog');
 const errorPlaceholder = document.querySelector('#share-error-message');
 const webShareEl = document.querySelector('web-share');
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.hljs.highlightAll();
+});
+
+errorDialog.addEventListener('click', evt => {
+  if (evt.target === evt.currentTarget) {
+    errorDialog.close();
+  }
+});
+
+const { WebShare } = await import(componentUrl);
+const { isWebShareSupported } = await import(utilUrl);
 
 WebShare.defineCustomElement();
 
@@ -34,9 +45,3 @@ webShareEl.shareFiles = [
   new File(['file content'], 'file-1.txt', { type: 'text/plain' }),
   new File(['file content'], 'file-2.txt', { type: 'text/plain' })
 ];
-
-errorDialog.addEventListener('click', evt => {
-  if (evt.target === evt.currentTarget) {
-    errorDialog.close();
-  }
-});
