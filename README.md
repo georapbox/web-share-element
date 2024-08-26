@@ -51,13 +51,13 @@ By default, the component is style-free to remain as less opinionated as possibl
 ## API
 
 ### Properties
-| Name | Reflects | Type | Default | Description |
-| ---- | -------- | ---- | ------- | ----------- |
-| `shareUrl`<br>*`share-url`* | ✓ | String | `''` | A string representing a URL to be shared. |
-| `shareTitle`<br>*`share-title`* | ✓ | String | `''` | A string representing a title to be shared. |
-| `shareText`<br>*`share-text`* | ✓ | String | `''` | A string representing text to be shared. |
-| `shareFiles` | - | Array | `[]` | An array of [File](https://developer.mozilla.org/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
-| `disabled` | ✓ | Boolean | `false` | Determines if the share button is disabled. |
+| Name | Reflects | Type | Required | Default | Description |
+| ---- | -------- | ---- | -------- | ------- | ----------- |
+| `shareUrl`<br>*`share-url`* | ✓ | String | - | `''` | A string representing a URL to be shared. |
+| `shareTitle`<br>*`share-title`* | ✓ | String | - | `''` | A string representing a title to be shared. |
+| `shareText`<br>*`share-text`* | ✓ | String | - | `''` | A string representing text to be shared. |
+| `shareFiles` | - | Array | - | `[]` | An array of [File](https://developer.mozilla.org/docs/Web/API/File) objects representing files to be shared. this property will be omitted if the device does not support sharing files or a file type is not shareable and it will try to share the rest of the properties. Check [here](https://developer.mozilla.org/docs/Web/API/Navigator/share#shareable_file_types) for shareable file types. |
+| `disabled` | ✓ | Boolean | - | `false` | Determines if the share button is disabled. |
 
 ### Slots
 
