@@ -8,10 +8,6 @@ const errorDialog = document.querySelector('#share-error-dialog');
 const errorPlaceholder = document.querySelector('#share-error-message');
 const webShareEl = document.querySelector('web-share');
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.hljs.highlightAll();
-});
-
 errorDialog.addEventListener('click', evt => {
   if (evt.target === evt.currentTarget) {
     errorDialog.close();
