@@ -7,6 +7,7 @@ WebShare.defineCustomElement();
 describe('<web-share>', () => {
   afterEach(() => {
     fixtureCleanup();
+    sinon.restore();
   });
 
   describe('accessibility', () => {
@@ -138,10 +139,10 @@ describe('<web-share>', () => {
         html`<web-share share-url="Share Url" share-title="Share title" share-text="Share text"></web-share>`
       );
       const btn = el.shadowRoot.querySelector('button');
-      const fn = sinon.spy(el, 'share');
+      const spy = sinon.spy(el, 'share');
       el.shareFiles = [new File(['foo'], 'foo.txt', { type: 'text/plain' })];
       btn.click();
-      expect(fn).to.have.been.calledOnce;
+      sinon.assert.calledOnce(spy);
     });
   });
 });
